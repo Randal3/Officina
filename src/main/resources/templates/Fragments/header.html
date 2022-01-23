@@ -1,71 +1,88 @@
 <!DOCTYPE html>
 <html>
+	<style>
+		body {
+			margin :0;
+			font-size: 28px;
+		}
+		
+		ul {
+			display: flex;
+			justify-content: center;
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+			overflow: hidden;
+			position: -webkit-sticky; /* Safari */
+			position: sticky;
+			top: 0;
+		}
+		
+		li a {
+			display: block;
+			color: white;
+			text-align: center;
+			padding: 20px 20px;
+			text-decoration: none;
+		}
+		
+		li .hover:hover {
+			background-color: rgb(238, 147, 147);
+		}
+
+		.background{
+			background-image: url("officna.jpg");
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: cover;
+		}
+
+		.titolo{
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
+		}
+
+		.titolo .center{
+			font-size: 2em;
+			text-align: center;
+		}
+
+		.piccolo{
+			font-size: 1.5em;
+			text-align: center;
+			margin-top: -20px;
+			padding-bottom: 20px;
+		}
+		a img{
+			margin-left: -10px;
+			margin-top: -20px;
+			margin-right: -20px;
+			height:60px;
+			width: 60px;
+		}
+	</style>
 <head th:fragment="headerfiles(title)">
 	<link th:href="@{/css/base.css}" rel="stylesheet">
 	</head>
-<style>
-body {
-  font-size: 28px;
-}
-
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #333;
-  position: -webkit-sticky; /* Safari */
-  position: sticky;
-  top: 0;
-}
-
-li {
-  float: left;
-}
-
-li a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
-
-li a:hover {
-  background-color: #111;
-}
-
-.active {
-  background-color: #4CAF50;
-}
-</style>
 </head>
-<body>
-<header>
-<div class="header">
-  <h2>Scroll Down</h2>
-  <p>Scroll down to see the sticky effect.</p>
-</div>
-
-<ul>
-  <li><a class="active" href="#home">Home</a></li>
-  <li><a href="#news">News</a></li>
-  <li><a href="#contact">Contact</a></li>
-</ul>
-
-
-<h3>Sticky Navigation Bar Example</h3>
-<p>The navbar will <strong>stick</strong> to the top when you reach its scroll position.</p>
-<p><strong>Note:</strong> Internet Explorer do not support sticky positioning and Safari requires a -webkit- prefix.</p>
-<p>Some text to enable scrolling. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
-<p>Some text to enable scrolling. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
-<p>Some text to enable scrolling. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
-<p>Some text to enable scrolling. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
-<p>Some text to enable scrolling. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
-<p>Some text to enable scrolling. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
-<p>Some text to enable scrolling. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
-</header>
-</body>
+<title>Officina</title>
+	<body>
+		<header>
+			<div class="background">
+				<div class="titolo">
+					<p class="center">OFFICIALSIW</p>
+					<p class="piccolo">La miglior Officina del quartiere</p>
+				</div>
+				<ul>
+				<li><a class="hover" th:href="@{Home}">Home</a></li>
+				<li><a class="hover" th:href="@{Interventi}">Interventi</a></li>
+				<li><a class="hover" th:href="@{Register}" >Contattaci</a></li>
+				<li><a th:href="@{Register}"><img src="Login.png"></a></li>
+				</ul>
+			</div>
+		</header>
+	</body>
 </html>
 
 
