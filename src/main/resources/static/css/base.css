@@ -1,35 +1,64 @@
-body {
-	margin :0;
-  	font-size: 28px;
-}
+		body {
+			margin :0;
+			font-size: 28px;
+		}
+		
+		ul {
+			display: flex;
+			justify-content: center;
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+			overflow: hidden;
+			position: -webkit-sticky; /* Safari */
+			position: sticky;
+			top: 0;
+		}
+		
+		li {
+			float: left;
+		}
 
-ul {
-	  list-style-type: none;
-	  margin: 0;
-	  padding: 0;
-	  overflow: hidden;
-	  background-color: #333;
-	  position: -webkit-sticky; /* Safari */
-	  position: sticky;
-	  top: 0;
-}
+		li a {
+			display: block;
+			color: white;
+			text-align: center;
+			padding: 20px 20px;
+			text-decoration: none;
+		}
+		
+		li .hover:hover {
+			background-color: rgb(238, 147, 147);
+		}
 
-li {
-  	float: left;
-}
+		.background{
+			background-image: url("officna.jpg");
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: cover;
+		}
 
-li a {
-	  display: block;
-	  color: white;
-	  text-align: center;
-	  padding: 14px 16px;
-	  text-decoration: none;
-}
+		.titolo{
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
+		}
 
-li a:hover {
-  	background-color: #111;
-}
+		.titolo .center{
+			font-size: 2em;
+			text-align: center;
+		}
 
-.active {
- 	 background-color: #4CAF50;
-}
+		.piccolo{
+			font-size: 1.5em;
+			text-align: center;
+			margin-top: -20px;
+			padding-bottom: 20px;
+		}
+		a img{
+			margin-left: -15px;
+			margin-top: -13px;
+			margin-right: -25px;
+			height:40px;
+			width: 40px;
+		}
