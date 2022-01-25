@@ -3,13 +3,42 @@
 	<head th:fragment="headerfiles(title)">
 	<link th:href="@{/css/base.css}" rel="stylesheet">
 	</head>
+	<title>Officina</title>
 	<body>
-	<div class="conteiner">
-	<div class="log-cointeiner">
-	</div>
-	<div class="nav-bar">
-	</div>
-	
-	</div>
-	</body>
+		<header>
+			<div class="background">
+				<div class="titolo">
+					<p class="center">OFFICIALSIW</p>
+					<p class="piccolo">La miglior Officina del quartiere</p>
+				</div>
+					<ul>
+						<li><a class="hover" th:href="@{Home}">Home</a></li>
+						<li><a class="hover" th:href="@{interventi}">Interventi</a></li>
+						<li><a class="hover" th:href="@{Register}" >Contattaci</a></li>
+						<li><a th:href="@{Register}"><img src="/images/login.png"></a></lis>
+					</ul>
+			</div>		
+		</header>
+		
+		<footer>
+		    OFFICINASIW | Via le mani dal naso, 24 - 00055 Ladispoli (Roma) ITALIA | C.F. ABC000000000 | P.Iva 000000000 <br>
+		    <a class="trans-color-text" href="#">info@tuosito.it</a> | <span itemprop="telephone"><a href="#">+39 347 58 30 387</a>
+		    <br><a target="_blank" href="#"> privacy</a> | <a target="_blank" href="#"> cookie policy</a>
+		    <div class="social-cont">        
+			    <ul class="social-list">
+			
+			    <li><a target="_blank" href="#"><span><i class="fa-duotone fa-user"></i></span></a></li>
+			    <li><a target="_blank" href="#"></a></li>
+			    <li><a target="_blank" href="#"><img src="" title="pinterest" alt="Instagram icon"></a></li>
+			
+			    </ul>
+		    	<div class="floatstop"></div>
+		    </div><!--/fine social cont-->
+		
+		   	Designed by<br>
+		  	<div class="credits">
+		   	<a target="_blank" href="#">Brucato Riccardo</a>  
+		    </div>
+		</footer>
+		</body>
 </html>

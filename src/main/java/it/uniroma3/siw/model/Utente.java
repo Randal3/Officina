@@ -27,6 +27,9 @@ public class Utente {
 	
 	@Column
 	private String cognome;
+	
+	@Column
+	private String numero;
 
 
 }
