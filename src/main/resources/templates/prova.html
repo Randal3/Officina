@@ -1,0 +1,96 @@
+<style>
+
+  
+body {
+			margin :0;
+			font-size: 28px;
+		}
+		
+		ul {
+			display: flex;
+			justify-content: center;
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+			overflow: hidden;
+			position: -webkit-sticky; /* Safari */
+			position: sticky;
+			top: 0;
+		}
+		
+		li {
+			float: left;
+		}
+
+		.a {
+			display: block;
+			color: rgba(248, 11, 11, 0.925);
+			text-align: center;
+			padding: 20px 20px;
+			text-decoration: none;
+		}
+
+    .destra{
+			display: block;
+			color: rgba(38, 0, 255, 0.925);
+			text-align: right;
+			padding: 20px 20px;
+			text-decoration: none;
+		}
+		
+		.a .hover:hover {
+			background-color: rgb(238, 147, 147);
+		}
+
+		.background{
+			background-image: url("/images/officina-navbar.jpg");
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: cover;
+		}
+
+		.titolo{
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
+		}
+
+		.titolo .center{
+			font-size: 2em;
+			text-align: center;
+		}
+
+		.piccolo{
+			font-size: 1.5em;
+			text-align: center;
+			margin-top: -20px;
+			padding-bottom: 20px;
+		}
+		a img{
+			margin-left: -15px;
+			margin-top: -20px;
+			margin-right: -25px;
+			height:40px;
+			width: 40px;
+		}
+		
+		input:focus, button:focus {outline:0;}
+		
+		
+</style>
+<html>
+  <body>
+        <div class="background">
+          <div class="titolo">
+            <p class="center">OFFICIALSIW</p>
+            <p class="piccolo">La miglior Officina del quartiere</p>
+          </div>
+            <ul>
+              <li><a class="a hover" th:href="@{index}">Home</a></li>
+              <li><a class="a hover" th:href="@{interventi}">Interventi</a></li>
+              <li><a class="a hover" th:href="@{Register}" >Contattaci</a></li>
+              <li><a class="destra">Logout</a></li>
+            </ul>
+        </div>		
+  </body>
+</html>

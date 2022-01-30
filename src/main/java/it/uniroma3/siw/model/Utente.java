@@ -1,7 +1,5 @@
 package it.uniroma3.siw.model;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,12 +22,10 @@ public class Utente {
 	
 	@Column
 	private String nome;
-	
+
 	@Column
 	private String cognome;
 	
 	@Column
 	private String numero;
-
-
 }

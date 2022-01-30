@@ -1,35 +1,43 @@
 package it.uniroma3.siw.model;
 
 import java.util.Date;
+import java.util.List;
+
 import javax.persistence.*;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Setter;
 
 @Entity
 @Data
 public class Prenotazione {
 	
-	@EmbeddedId
-	private PrenotazioneId id;
-	
-	@Column
-	private Date data_prenotazione;
-	
-	@Column
-	private Date data_intervento;
-	
+	@Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Setter(value = AccessLevel.NONE)
+    private Long id;
 
-	@ManyToOne
-	@MapsId("Meccanico_id")
-	@JoinColumn(name ="Meccanico_id")
-	private Meccanico meccanico;
-	
-	@ManyToOne
-	@MapsId("Utente_id")
-	@JoinColumn(name = "Utente_id")
-	private Utente cliente;
-	
-	@ManyToOne
-	@MapsId("Intervento_id")
-	@JoinColumn(name = "Intervento_id")
-	private TipologiaIntervento tipologia;
+    @Column
+    private String data_prenotazione;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date data_intervento;
+
+
+    @ManyToOne
+    private Meccanico meccanico;
+
+    @ManyToOne
+    private Utente cliente;
+
+    @ManyToMany
+    private List<TipologiaIntervento> tipologia;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Auto auto;
+    
+
 }

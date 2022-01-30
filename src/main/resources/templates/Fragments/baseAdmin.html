@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:fragment="headerfiles(title)">
+	<link th:href="@{/css/base.css}" rel="stylesheet">
+	</head>
+	<title>Officina</title>
+	<body>
+		<header>
+			<div class="background">
+				<div class="titolo">
+					<p class="center">OFFICINASIW</p>
+					<p class="piccolo">La miglior Officina del quartiere</p>
+				</div>
+					<ul>
+						<li><a class="hover" th:href="@{index}">Home</a></li>
+						<li><div class="dropdown">
+							    <a class="dropbtn">Interventi 
+							     	<i class="fa fa-caret-down"></i>
+							    </a>
+							    <div class="dropdown-content">
+							    	<a href="#">Aggiungi Intervento</a>
+							      	<a href="#">Modifica Intervento</a>
+							      	<a href="#">Cronologia Interventi</a>
+							    </div>
+						</li>
+						<li><div class="dropdown">
+							    <a class="dropbtn">Profili 
+							     	<i class="fa fa-caret-down"></i>
+							    </a>
+							    <div class="dropdown-content">
+							      	<a href="#">Visualizza Utente</a>
+							      	<a href="#">Visualizza Meccanici</a>
+							    </div>
+							</div>
+						</li>
+						<li><a class="hover" th:href="@{logout}" >Logout</a></li>
+					</ul>
+			</div>		
+		
+		</div>
+		</header>
+		
+		<footer>
+		    OFFICINASIW | Via le mani dal naso, 24 - 00055 Ladispoli (Roma) ITALIA | C.F. ABC000000000 | P.Iva 000000000 <br>
+		    <a class="trans-color-text" href="#">info@tuosito.it</a> | <span itemprop="telephone"><a href="#">+39 347 58 30 387</a>
+		    <br><a target="_blank" href="#"> privacy</a> | <a target="_blank" href="#"> cookie policy</a>
+		    <div class="social-cont">        
+			    <ul class="social-list">
+			
+			    <li><a target="_blank" href="#"><span><i class="fa-duotone fa-user"></i></span></a></li>
+			    <li><a target="_blank" href="#"></a></li>
+			    <li><a target="_blank" href="#"><img src="" title="pinterest" alt="Instagram icon"></a></li>
+			
+			    </ul>
+		    	<div class="floatstop"></div>
+		    </div><!--/fine social cont-->
+		
+		   	Designed by<br>
+		  	<div class="credits">
+		   	<a target="_blank" href="#">Brucato Riccardo</a>  
+		    </div>
+		</footer>
+		</body>
+</html>

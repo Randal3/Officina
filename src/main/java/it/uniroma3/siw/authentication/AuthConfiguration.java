@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -38,7 +39,7 @@ public class AuthConfiguration extends WebSecurityConfigurerAdapter {
         		// authorization paragraph: qui definiamo chi può accedere a cosa
                 .authorizeRequests()
                 // chiunque (autenticato o no) può accedere alle pagine index, login, register, ai css e alle immagini
-                .antMatchers(HttpMethod.GET, "/", "/index", "/login", "/register", "/css/**", "/images/**", "/interventi").permitAll()
+                .antMatchers(HttpMethod.GET, "/", "/index", "/login", "/register", "/css/**", "/images/**", "/interventi" , "/contatti").permitAll()
                 // chiunque (autenticato o no) può mandare richieste POST al punto di accesso per login e register 
                 .antMatchers(HttpMethod.POST, "/login", "/register").permitAll()
                 // solo gli utenti autenticati con ruolo ADMIN possono accedere a risorse con path /admin/**
@@ -48,14 +49,15 @@ public class AuthConfiguration extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
 
                 .and().formLogin()
-                .loginPage("/login").failureUrl("/index#login").
-                defaultSuccessUrl("/default")
-
-                .and().logout()
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/index")        
-                .invalidateHttpSession(true)
-                .clearAuthentication(true).permitAll();
+                .loginPage("/login").failureUrl("/index#BADUSER").
+                defaultSuccessUrl("/index")
+        
+		        .and().logout()
+		        .logoutUrl("/logout")
+		        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+		        .logoutSuccessUrl("/index")
+		        .invalidateHttpSession(true)
+		        .clearAuthentication(true).permitAll();
     }
 
     @Override

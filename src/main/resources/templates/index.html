@@ -4,32 +4,23 @@
 	</head> 
  	
 	<body>
-	<header th:replace="Fragments/base.html:: header"></header>
-		<p>Sandalo</p>
-		<p>asdasdasdasddddddddddddddddddddddddd</p>
-		<p>asdasdasdasddddddddddddddddddddddddd</p>
-		<p>asdasdasdasddddddddddddddddddddddddd</p>
-		<p>asdasdasdasddddddddddddddddddddddddd</p>
-		<p>asdasdasdasddddddddddddddddddddddddd</p>
-		<p>asdasdasdasddddddddddddddddddddddddd</p>
-		<p>asdasdasdasddddddddddddddddddddddddd</p>
-		<p>asdasdasdasddddddddddddddddddddddddd</p>
-		<p>asdasdasdasddddddddddddddddddddddddd</p>
-		<p>asdasdasdasddddddddddddddddddddddddd</p>
-		<p>asdasdasdasddddddddddddddddddddddddd</p>
-		<p>asdasdasdasddddddddddddddddddddddddd</p>
-		<p>asdasdasdasddddddddddddddddddddddddd</p>
-		<p>asdasdasdasddddddddddddddddddddddddd</p>
-		<p>asdasdasdasddddddddddddddddddddddddd</p>
-		<p>asdasdasdasddddddddddddddddddddddddd</p>
-		<p>asdasdasdasddddddddddddddddddddddddd</p>
-		<p>asdasdasdasddddddddddddddddddddddddd</p>
-		<p>asdasdasdasddddddddddddddddddddddddd</p>
-		<p>asdasdasdasddddddddddddddddddddddddd</p>
-		<p>asdasdasdasddddddddddddddddddddddddd</p>
-		<p>asdasdasdasddddddddddddddddddddddddd</p>
-		<p>asdasdasdasddddddddddddddddddddddddd</p>
-		<p>asdasdasdasddddddddddddddddddddddddd</p>
+	  	<td th:switch="${ROLE}">
+		    <span th:case="'0'"><header th:replace="Fragments/baseAdmin.html:: header"></span>
+		    <div th:case="'1'"><header th:replace="Fragments/user.html:: header"></header></div>
+		    <div th:case="'3'"><header th:replace="Fragments/base.html:: header"></header></div>
+		</td>
+		<!-- Page content -->
+	    <div class="stile-content stile-padding-large stile-margin-top">
+	        <!-- Contact -->
+	        <div class="stile-light-grey stile-padding-large stile-padding-32 stile-margin-top">
+	            <div style="text-align: center;">
+	            	<h3> NOSTRA STORIA</h3>
+	            </div>
+	            <hr>
+	            <p>OFFICINASIW è la nostra autofficina di Ladispoli specializzata in interventi sulla tua auto. Mettiamo alla base del nostro servizio le esigenze del Cliente, eliminando tutte le problematiche che oggi si riscontrano nel settore auto. Grazie alla nostra esperienza abbiamo individuato il modo migliore per soddisfare i nostri clienti ponendo il rimedio a 3 questioni fondamentali: prezzo, tempo di lavorazione e certificazione dei ricambi. OFFICINASIW lavora perché l’accesso ai nostri servizi diventi per il Cliente una piacevole Esperienza da ripetere con regolarità.</p>
+	            
+	        </div>
+	    </div>     
 	</body>
 	<footer th:replace="Fragments/base.html:: footer"></footer>
 </html>

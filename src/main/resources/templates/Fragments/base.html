@@ -8,16 +8,65 @@
 		<header>
 			<div class="background">
 				<div class="titolo">
-					<p class="center">OFFICIALSIW</p>
+					<p class="center">OFFICINASIW</p>
 					<p class="piccolo">La miglior Officina del quartiere</p>
 				</div>
 					<ul>
-						<li><a class="hover" th:href="@{Home}">Home</a></li>
-						<li><a class="hover" th:href="@{interventi}">Interventi</a></li>
-						<li><a class="hover" th:href="@{Register}" >Contattaci</a></li>
-						<li><a th:href="@{Register}"><img src="/images/login.png"></a></lis>
+						<li><a class="hover" th:href="@{index}">Home</a></li>
+						<li><a class="hover" th:href="@{register}">Interventi</a></li>
+						<li><a class="hover" th:href="@{contatti}" >Contattaci</a></li>
+						<li><a id="myBtn"><img src="/images/login.png"></a></lis>
 					</ul>
 			</div>		
+		
+		<!-- The Modal -->
+		<div id="myModal" class="modal">
+		
+		  <!-- Modal content -->
+		  <div class="modal-content">
+		    <span class="close">&times;</span>
+		    <div>
+		      <form th:action="@{/login}" method="POST">
+		        <label for="fname" class="scritte">Username</label>
+		        <input type="text" id="fname" name="username" placeholder="Your name..">
+		    
+		        <label for="lname" class="scritte">Password</label>
+		        <input type="password" id="lname" name="password" placeholder="Your last name..">
+		
+		        <input type="submit" value="Login">
+		        <a th:href="@{/register}" style="font-size: 13px;">Non hai un account? Registrati</a></li>
+		      </form>
+		    </div>
+		  </div>
+		
+		</div>
+		<script>
+		// Get the modal
+		var modal = document.getElementById("myModal");
+		
+		// Get the button that opens the modal
+		var btn = document.getElementById("myBtn");
+		
+		// Get the <span> element that closes the modal
+		var span = document.getElementsByClassName("close")[0];
+		
+		// When the user clicks the button, open the modal 
+		btn.onclick = function() {
+		  modal.style.display = "block";
+		}
+		
+		// When the user clicks on <span> (x), close the modal
+		span.onclick = function() {
+		  modal.style.display = "none";
+		}
+		
+		// When the user clicks anywhere outside of the modal, close it
+		window.onclick = function(event) {
+		  if (event.target == modal) {
+		    modal.style.display = "none";
+		  }
+		}
+		</script>
 		</header>
 		
 		<footer>
