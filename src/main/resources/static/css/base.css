@@ -187,7 +187,7 @@ input {
 
     input[type=submit] {
     width: 100%;
-    background-color: #4CAF50;
+    background-color: #B3453E;
     color: white;
     padding: 14px 20px;
     margin: 8px 0;
@@ -197,7 +197,7 @@ input {
     }
 
     input[type=submit]:hover {
-  background-color: #45a049;
+  background-color: #91362f;
 }
 
 /* The Modal (background) */
@@ -325,4 +325,16 @@ div#verticale {
             padding-bottom: 32px!important;
         }
  
+         .boximgstoria{
+            width: 30%; 
+            height: 300px; 
+            background-color: #000;
+        }
+
+        .boxstoria{
+            width: 70%; 
+            height: 300px; 
+            font-size: 25px; 
+            padding-left: 15px;
+        }
  
