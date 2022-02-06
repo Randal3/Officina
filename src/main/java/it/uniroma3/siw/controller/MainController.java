@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import it.uniroma3.siw.controller.validator.CredentialsValidator;
 import it.uniroma3.siw.controller.validator.UtenteValidator;
 import it.uniroma3.siw.model.Credentials;
+import it.uniroma3.siw.model.TipologiaIntervento;
 import it.uniroma3.siw.model.Utente;
 import it.uniroma3.siw.service.CredentialsService;
+import it.uniroma3.siw.service.TipologiaService;
 
 @Controller
 public class MainController {
@@ -24,6 +26,8 @@ public class MainController {
 	private UtenteValidator userValidator;
 	@Autowired
 	private CredentialsValidator credentialsValidator;
+	@Autowired
+	private TipologiaService tipologiaService;
 	
 	
 	@RequestMapping(value = "/interventi", method = RequestMethod.GET)
@@ -77,6 +81,30 @@ public class MainController {
 		autorizzazione(model);
 		return "contatti";
     }
+	
+	@RequestMapping(value = "/admin/modificaInterventi", method = RequestMethod.GET)
+    public String modificaInterventi(Model model) {
+		autorizzazione(model);
+		
+		model.addAttribute("tipologia", new TipologiaIntervento());
+		
+		model.addAttribute("tipi", tipologiaService.tipi());
+		
+		return "admin/modificaInterventi";
+    }
+	
+	@RequestMapping(value = "/NuovaTipologia", method = RequestMethod.POST)
+    public String nuovaTipologia(Model model, @ModelAttribute("tipologia") TipologiaIntervento tipologia) {
+		
+		tipologiaService.setTipologia(tipologia);
+		return "redirect:admin/modificaInterventi";
+    }
+	
+	
+	
+	
+	
+	
 	
 	
 	private void autorizzazione(Model model) {

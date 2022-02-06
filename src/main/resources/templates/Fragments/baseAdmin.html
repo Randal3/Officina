@@ -12,18 +12,18 @@
 					<p class="piccolo">La miglior Officina del quartiere</p>
 				</div>
 					<ul>
-						<li><a class="hover" th:href="@{index}">Home</a></li>
+						<li><a class="hover" th:href="@{/index}">Home</a></li>
 						<li><div class="dropdown">
 							    <a class="dropbtn">Interventi 
 							     	<i class="fa fa-caret-down"></i>
 							    </a>
 							    <div class="dropdown-content">
-							      	<a href="#">Modifica Interventi</a>
+							      	<a th:href="@{/admin/modificaInterventi}">Modifica Interventi</a>
 							      	<a href="#">Cronologia Interventi</a>
 							    </div>
 						</li>
 						<li><div class="dropdown">
-							    <a class="dropbtn">Profili 
+							    <a class="dropbtn">Profili
 							     	<i class="fa fa-caret-down"></i>
 							    </a>
 							    <div class="dropdown-content">
@@ -32,7 +32,7 @@
 							    </div>
 							</div>
 						</li>
-						<li><a class="hover" th:href="@{logout}" >Logout</a></li>
+						<li><a class="hover" th:href="@{/logout}" >Logout</a></li>
 					</ul>
 			</div>		
 		
