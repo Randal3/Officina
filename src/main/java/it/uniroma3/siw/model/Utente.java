@@ -14,7 +14,7 @@ import lombok.Setter;
 @Data
 @Entity
 public class Utente {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Setter(value = AccessLevel.NONE)

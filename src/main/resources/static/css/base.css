@@ -211,14 +211,12 @@ textarea{
 }
 
     .bottone{
-        width: 10%;
         background-color: #91362f;
         color: white;
         padding: 14px 20px;
         border: none;
         border-radius: 6px;
         cursor: pointer;
-        margin-left: 58%;
        }
 
 /* The Modal (background) */

@@ -10,7 +10,6 @@ import javax.persistence.OneToOne;
 
 import lombok.Data;
 
-
 @Data
 @Entity
 public class Credentials {
@@ -33,6 +32,4 @@ public class Credentials {
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	private Utente user;
-
-
 }

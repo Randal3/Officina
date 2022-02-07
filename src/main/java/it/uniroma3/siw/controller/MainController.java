@@ -16,6 +16,7 @@ import it.uniroma3.siw.model.TipologiaIntervento;
 import it.uniroma3.siw.model.Utente;
 import it.uniroma3.siw.service.CredentialsService;
 import it.uniroma3.siw.service.TipologiaService;
+import it.uniroma3.siw.service.UtenteService;
 
 @Controller
 public class MainController {
@@ -28,6 +29,8 @@ public class MainController {
 	private CredentialsValidator credentialsValidator;
 	@Autowired
 	private TipologiaService tipologiaService;
+	@Autowired
+	private UtenteService utenteService;
 	
 	
 	@RequestMapping(value = "/interventi", method = RequestMethod.GET)
@@ -55,7 +58,6 @@ public class MainController {
 
         this.userValidator.validate(user, userBindingResult);
         this.credentialsValidator.validate(credentials, credentialsBindingResult);
-
         if(!userBindingResult.hasErrors() && !credentialsBindingResult.hasErrors()) {
             credentials.setUser(user);
             credentialService.saveCredentials(credentials);
@@ -98,6 +100,15 @@ public class MainController {
 		
 		tipologiaService.setTipologia(tipologia);
 		return "redirect:admin/modificaInterventi";
+    }
+	
+	@RequestMapping(value = "/admin/visualizzaClienti", method = RequestMethod.GET)
+    public String visualizzaClienti(Model model) {
+		autorizzazione(model);
+		
+		model.addAttribute("anagrafica", utenteService.anagrafica());
+		
+		return "admin/visualizzaClienti";
     }
 	
 	
