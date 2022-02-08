@@ -357,6 +357,7 @@ div#verticale {
   
   table {
   width: 100%;
+  font-size: 18px;
   border-collapse: collapse;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
@@ -368,10 +369,6 @@ td {
 }
 th {
   text-align: left;
-}
-.tipi{
-	background-color: rgb(238, 147, 147);
-	font-size: 15px;
 }
 thead th {
   background-color: #5a98af;

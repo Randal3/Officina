@@ -20,4 +20,9 @@ public class UtenteService {
         return (List<Utente>) this.utenteRepository.findAll();
     }
 
+    @Transactional
+	public void elimina(long id) {
+		this.utenteRepository.deleteById(id);
+	}
+
 }

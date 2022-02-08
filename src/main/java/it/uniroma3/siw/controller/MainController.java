@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import antlr.collections.List;
 import it.uniroma3.siw.controller.validator.CredentialsValidator;
 import it.uniroma3.siw.controller.validator.UtenteValidator;
 import it.uniroma3.siw.model.Credentials;
@@ -40,17 +38,22 @@ public class MainController {
 	@Autowired
 	private MeccanicoService meccanicoService;
 	
-	
-	@RequestMapping(value = "/interventi", method = RequestMethod.GET)
-    public String interventi() {
-		return "interventi";
-    }
+	//Sezione Index
 	
 	@RequestMapping(value = {"/index", "/"}, method = RequestMethod.GET)
     public String index(Model model) {
 		autorizzazione(model);
 		return "index";
     }
+	
+	//Sezione interventi
+	
+	@RequestMapping(value = "/interventi", method = RequestMethod.GET)
+    public String interventi() {
+		return "interventi";
+    }
+	
+	//Sezione registrazione
 	
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
     public String register(Model model) {
@@ -75,10 +78,13 @@ public class MainController {
         return "register";
     }
 	
+	//Sezione logout
 	@RequestMapping(value = "/logout", method = RequestMethod.GET) 
 	public String logout() {
 		return "index";
 	}
+	
+	//Sezione profilo
 	
 	@RequestMapping(value = "/profilo", method = RequestMethod.GET)
     public String profilo(Model model) {
@@ -86,11 +92,15 @@ public class MainController {
 		return "profilo";
     }
 	
+	//Sezione contatti
+	
 	@RequestMapping(value = "/contatti", method = RequestMethod.GET)
     public String contatti(Model model) {
 		autorizzazione(model);
 		return "contatti";
     }
+	
+	//Sezione modifica  Interventi ADMIN
 	
 	@RequestMapping(value = "/admin/modificaInterventi", method = RequestMethod.GET)
     public String modificaInterventi(Model model) {
@@ -109,6 +119,8 @@ public class MainController {
 		return "redirect:admin/modificaInterventi";
     }
 	
+	//Sezione Visualizza Utenti ADMIN
+	
 	@RequestMapping(value = "/admin/visualizzaClienti", method = RequestMethod.GET)
     public String visualizzaClienti(Model model) {
 		
@@ -116,6 +128,17 @@ public class MainController {
 		
 		return "admin/visualizzaClienti";
     }
+	
+	@GetMapping(value = "/admin/eliminaUtente/{id}")
+    public String eliminaUtente(@PathVariable("id") Long id) {
+		
+		this.credentialService.elimina(id);
+		this.utenteService.elimina(id);
+        
+        return "redirect:/admin/visualizzaClienti";
+    }
+	
+	//Sezione Visualizza Meccanici ADMIN
 	
 	@RequestMapping(value = "/admin/visualizzaMeccanici", method = RequestMethod.GET)
     public String visualizzaMeccanici(Model model) {
@@ -136,6 +159,8 @@ public class MainController {
 		return "redirect:admin/visualizzaMeccanici";
     }
 	
+	//Sezione Aggiungi-Prenota Intervento ADMIN
+	
 	@RequestMapping(value = "/admin/aggiungiIntervento", method = RequestMethod.GET)
     public String aggiungiIntervento(Model model) {
 		model.addAttribute("tipi", tipologiaService.tipi());
@@ -144,7 +169,6 @@ public class MainController {
 	
 	@GetMapping(value = "/admin/prenotaIntervento/{id}")
     public String prenotaIntervento(@PathVariable("id") Long id, Model model) {
-		TipologiaIntervento tipi = this.tipologiaService.getTipologia(id);
 		
         model.addAttribute("meccanico", meccanicoService.listaMeccaniciAutorizzati(id));
         
@@ -158,7 +182,7 @@ public class MainController {
 	
 	
 	
-	
+	//Funzione Accesso [ADMIN - User - Generico ]
 	
 	private void autorizzazione(Model model) {
 		System.out.println("PROVAPROVA");

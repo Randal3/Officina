@@ -36,13 +36,13 @@
 						            <tr>
 						                <th></th>
 						
-						                <th class="tipi">Tipologia Interventi</th>
+						                <th>Tipologia Interventi</th>
 						            </tr>
 						        </thead>
 						        <tbody>
 							        <div th:each="t : ${tipi}">
 							            <tr>
-							                <td><input th:field="*{interventi}" th:value="${t.id}" type="checkbox" name="table_radio" checked="checked"/></td>
+							                <td ><input th:field="*{interventi}" th:value="${t.id}" type="checkbox" name="table_radio" checked="checked"/></td>
 							                <td th:text="${t.nome}"></td>
 							            </tr>
 							        </div>

@@ -32,7 +32,7 @@
 			                <td th:text="${t.nome}"></td>
 			                <td th:text="${t.cognome}"></td>
 			                <td th:text="${t.numero}"></td>
-			                <td> Modifica </td>
+			                <td> Modifica <a th:href="'eliminaUtente/'+${t.id}">DROP</a> </td>
 			            </tr>
 			        </div>
 			        </tbody>

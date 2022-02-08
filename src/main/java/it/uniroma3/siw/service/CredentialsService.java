@@ -17,7 +17,6 @@ public class CredentialsService {
 
     @Autowired
     protected PasswordEncoder passwordEncoder;
-
     @Autowired
     protected CredentialsRepository credentialsRepository;
     
@@ -54,4 +53,9 @@ public class CredentialsService {
         Credentials credentials = this.getCredentials(userDetails.getUsername());
         return credentials.getRole();
     }
+
+    @Transactional
+	public void elimina(long id) {
+		this.credentialsRepository.deleteByIdUtente(id);
+	}
 }

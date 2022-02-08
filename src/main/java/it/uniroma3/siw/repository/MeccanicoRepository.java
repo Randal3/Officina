@@ -9,6 +9,6 @@ import it.uniroma3.siw.model.Meccanico;
 
 public interface MeccanicoRepository extends CrudRepository<Meccanico, Long> {
 	
-	@Query(value = "select * from Meccanico m join meccanico_interventi t on m.id = t.meccanico_id where t.interventi_id=?1  ",nativeQuery = true)
+	@Query(value = "select * from Meccanico m join meccanico_interventi t on m.id = t.meccanico_id where t.interventi_id=?1 ", nativeQuery = true)
 	List<Meccanico> findByIdTipologia(Long id);
 }
