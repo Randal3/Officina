@@ -1,51 +1,48 @@
 <!DOCTYPE html> 
-<htxml"http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"> 
+<htxml xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"> 
 <head  th:replace="Fragments/base.html :: headerfiles(title='Officina')">  
 	</head> 
  	
 	<body>
-<header th:replace="Fragments/baseAdmin.html:: header"></header>
+		    <header th:replace="Fragments/baseAdmin.html:: header"></header>
 	
 	<!-- Page content -->
     <div class="stile-content stile-padding-large stile-margin-top">
+        <!-- Contact -->
         <div class="stile-light-grey stile-padding-large stile-padding-32 stile-margin-top">
-        <div>
-        	<p>Lista Clienti registrati</p>
-        </div>
+        	<p>Scegli l'intervento da prenotare</p>
             <hr>
              <div>
 			    <table>
 			        <thead>
 			            <tr>
+			            	<th></th>
 			                <th>Nome</th>
 			
-			                <th>Cognome</th>
+			                <th>Prezzo</th>
 			
-			                <th>Numero</th>
-			                <th></th>
+			                <th>Descrizione</th>
 			
 			            </tr>
 			        </thead>
 			        <tbody>
-			        <div th:each="t : ${anagrafica}">
+			        <div th:each="t : ${tipi}">
 			            <tr>
+			            	<td><a th:href="'prenotaIntervento/'+${t.id}">LOGO</a></td>             
 			                <td th:text="${t.nome}"></td>
-			                <td th:text="${t.cognome}"></td>
-			                <td th:text="${t.numero}"></td>
-			                <td> Modifica </td>
+			                <td th:text="${t.prezzo}+€"></td>
+			                <td th:text="${t.Descrizione}"></td>
 			            </tr>
 			        </div>
 			        </tbody>
 			    </table>
 			</div>
         </div>
-      </div>  
+     </div>   
         
         
         
         
         
-    <!-- End page content -->
 	</body>
-	<footer th:replace="Fragments/base.html:: footer"></footer>
 </html>

@@ -1,6 +1,7 @@
 package it.uniroma3.siw.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,4 +25,9 @@ public class TipologiaService {
     public List<TipologiaIntervento> tipi() {
         return (List<TipologiaIntervento>) this.tipologiaRepository.findAll();
     }
+	@Transactional
+	public TipologiaIntervento getTipologia(Long id) {
+		Optional<TipologiaIntervento> risultato = this.tipologiaRepository.findById(id);
+		return risultato.orElse(null);
+	}
 }

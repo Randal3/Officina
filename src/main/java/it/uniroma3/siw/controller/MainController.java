@@ -6,15 +6,21 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import antlr.collections.List;
 import it.uniroma3.siw.controller.validator.CredentialsValidator;
 import it.uniroma3.siw.controller.validator.UtenteValidator;
 import it.uniroma3.siw.model.Credentials;
+import it.uniroma3.siw.model.Meccanico;
 import it.uniroma3.siw.model.TipologiaIntervento;
 import it.uniroma3.siw.model.Utente;
 import it.uniroma3.siw.service.CredentialsService;
+import it.uniroma3.siw.service.MeccanicoService;
 import it.uniroma3.siw.service.TipologiaService;
 import it.uniroma3.siw.service.UtenteService;
 
@@ -31,6 +37,8 @@ public class MainController {
 	private TipologiaService tipologiaService;
 	@Autowired
 	private UtenteService utenteService;
+	@Autowired
+	private MeccanicoService meccanicoService;
 	
 	
 	@RequestMapping(value = "/interventi", method = RequestMethod.GET)
@@ -86,7 +94,6 @@ public class MainController {
 	
 	@RequestMapping(value = "/admin/modificaInterventi", method = RequestMethod.GET)
     public String modificaInterventi(Model model) {
-		autorizzazione(model);
 		
 		model.addAttribute("tipologia", new TipologiaIntervento());
 		
@@ -104,12 +111,47 @@ public class MainController {
 	
 	@RequestMapping(value = "/admin/visualizzaClienti", method = RequestMethod.GET)
     public String visualizzaClienti(Model model) {
-		autorizzazione(model);
 		
 		model.addAttribute("anagrafica", utenteService.anagrafica());
 		
 		return "admin/visualizzaClienti";
     }
+	
+	@RequestMapping(value = "/admin/visualizzaMeccanici", method = RequestMethod.GET)
+    public String visualizzaMeccanici(Model model) {
+		
+		model.addAttribute("meccanico", new Meccanico());
+		
+		model.addAttribute("nuovoMeccanico", meccanicoService.aggiungiMeccanico());
+		
+		model.addAttribute("tipi", tipologiaService.tipi());
+		
+		return "admin/visualizzaMeccanici";
+    }
+	
+	@RequestMapping(value = "/NuovoMeccanico", method = RequestMethod.POST)
+    public String nuovoMeccanico(Model model, @ModelAttribute("meccanico") Meccanico meccanico) {
+		
+		meccanicoService.setMeccanico(meccanico);
+		return "redirect:admin/visualizzaMeccanici";
+    }
+	
+	@RequestMapping(value = "/admin/aggiungiIntervento", method = RequestMethod.GET)
+    public String aggiungiIntervento(Model model) {
+		model.addAttribute("tipi", tipologiaService.tipi());
+		return "admin/aggiungiInterventi";
+    }
+	
+	@GetMapping(value = "/admin/prenotaIntervento/{id}")
+    public String prenotaIntervento(@PathVariable("id") Long id, Model model) {
+		TipologiaIntervento tipi = this.tipologiaService.getTipologia(id);
+		
+        model.addAttribute("meccanico", meccanicoService.listaMeccaniciAutorizzati(id));
+        
+        return "/admin/prenotaIntervento";
+    }
+	
+	
 	
 	
 	

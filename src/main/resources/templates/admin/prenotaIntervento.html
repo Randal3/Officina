@@ -1,0 +1,47 @@
+<!DOCTYPE html> 
+<htxml xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"> 
+<head  th:replace="Fragments/base.html :: headerfiles(title='Officina')">  
+	</head> 
+ 	
+	<body>
+		    <header th:replace="Fragments/baseAdmin.html:: header"></header>
+	
+	<!-- Page content -->
+    <div class="stile-content stile-padding-large stile-margin-top">
+        <!-- Contact -->
+        <div class="stile-light-grey stile-padding-large stile-padding-32 stile-margin-top">
+        	<p>Scegli il meccanico specializzato</p>
+            <hr>
+            <form  th:action="@{/NuovoMeccanico}" method="POST" th:object="${meccanico}">
+	             <div>
+				    <table>
+				        <thead>
+				            <tr>
+				            	<th></th>
+				                <th>Nome</th>
+				
+				                <th>Cognome</th>
+				            </tr>
+				        </thead>
+				        <tbody>
+				        <div th:each="t : ${meccanico}">
+							<tr>
+								 <td><input type="checkbox" name="table_radio" checked="checked"/></td>
+								 <td th:text="${t.nome}"></td>
+								 <td th:text="${t.cognome}"></td>
+							</tr>
+						</div>
+				        </tbody>
+				    </table>
+				</div>
+				<input type="submit">
+	        </form>
+        </div>
+     </div>   
+        
+        
+        
+        
+        
+	</body>
+</html>

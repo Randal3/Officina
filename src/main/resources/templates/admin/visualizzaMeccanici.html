@@ -1,17 +1,17 @@
-<!DOCTYPE html> 
 <htxml xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"> 
 <head  th:replace="Fragments/base.html :: headerfiles(title='Officina')">  
 	</head> 
  	
 	<body>
-		    <header th:replace="Fragments/baseAdmin.html:: header"></header>
+	<header th:replace="Fragments/baseAdmin.html:: header"></header>
+
 	
 	<!-- Page content -->
     <div class="stile-content stile-padding-large stile-margin-top">
         <!-- Contact -->
         <div class="stile-light-grey stile-padding-large stile-padding-32 stile-margin-top">
         <div style="display: flex; justify-content: space-between;">
-        	<p>Lista Tipologie Intervento</p>
+        	<p>Lista Meccanici</p>
         	<p><button class ="bottone" id="myBtn">Aggiungi</button></p>
         </div>
             <!-- The Modal -->
@@ -21,18 +21,33 @@
 				  <div class="modal-content">
 				    <span class="close">&times;</span>
 				    <div>
-				      <form  th:action="@{/NuovaTipologia}" method="POST" th:object="${tipologia}">
+				      <form  th:action="@{/NuovoMeccanico}" method="POST" th:object="${meccanico}">
                             <div>
-                            <label for="name">Nome Intervento</label>
-                            <input id="name" type="text" th:field="*{nome}"  placeholder=" Name" required>
-                            </div>
-                            <div >
-                            <label for="price">Prezzo</label>
-                            <input id="price" type="number" th:field="*{prezzo}" placeholder="Prezzo" required>
+                            	<label for="name">Nome Meccanico</label>
+                            	<input id="name" type="text" th:field="*{nome}"  placeholder=" Name" required>
                             </div>
                             <div>
-                            <label for="descrizione">Descrizione</label><br>
-                            <textarea id="descrizione" th:field="*{descrizione}" name="story" ></textarea>
+                            	<label for="cognome">Cognome</label>
+                            	<input id="cognome" type="text" th:field="*{cognome}" placeholder="Cognome" required>
+                            </div>
+                            <div>
+                            <table>
+						        <thead>
+						            <tr>
+						                <th></th>
+						
+						                <th class="tipi">Tipologia Interventi</th>
+						            </tr>
+						        </thead>
+						        <tbody>
+							        <div th:each="t : ${tipi}">
+							            <tr>
+							                <td><input th:field="*{interventi}" th:value="${t.id}" type="checkbox" name="table_radio" checked="checked"/></td>
+							                <td th:text="${t.nome}"></td>
+							            </tr>
+							        </div>
+						        </tbody>
+						    </table>
                             </div>
                             <input type="submit">
                         </form>
@@ -46,18 +61,18 @@
 			            <tr>
 			                <th>Nome</th>
 			
-			                <th>Prezzo</th>
+			                <th>Cognome</th>
 			
-			                <th>Descrizione</th>
+			                <th>Abilitazioni Interventi</th>
 			
 			            </tr>
 			        </thead>
 			        <tbody>
-			        <div th:each="t : ${tipi}">
+			        <div th:each="t : ${nuovoMeccanico}">
 			            <tr>
 			                <td th:text="${t.nome}"></td>
-			                <td th:text="${t.prezzo}+€"></td>
-			                <td th:text="${t.Descrizione}"></td>
+			                <td th:text="${t.cognome}"></td>
+			                <td><p th:each="i : ${t.interventi}" th:text="${i.nome}"></p></td>
 			            </tr>
 			        </div>
 			        </tbody>
