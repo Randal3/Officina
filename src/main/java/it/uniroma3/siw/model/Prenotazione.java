@@ -1,12 +1,8 @@
 package it.uniroma3.siw.model;
 
 import java.util.Date;
-import java.util.List;
-
 import javax.persistence.*;
-
 import org.springframework.format.annotation.DateTimeFormat;
-
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
@@ -20,24 +16,32 @@ public class Prenotazione {
     @Setter(value = AccessLevel.NONE)
     private Long id;
 
-    @Column
+	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
     private String data_prenotazione;
+    
+    @Column(columnDefinition="TEXT")
+    private String descrizione_veicolo;
+    
+    @Column
+    private boolean conferma;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date data_intervento;
-
+    @DateTimeFormat(pattern = "yyyy/MM/dd")
+    private String data_intervento;
 
     @ManyToOne
     private Meccanico meccanico;
 
     @ManyToOne
-    private Utente cliente;
+    private Utente utente;
 
-    @ManyToMany
-    private List<TipologiaIntervento> tipologia;
+    @ManyToOne
+    private TipologiaIntervento tipologia;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    private Auto auto;
-    
-
+	public void setData_prenotazione(String now) {
+		this.data_prenotazione = now;
+	}
+	
+	public void setData_Intervento(String now) {
+		this.data_intervento = now;
+	}
 }

@@ -1,0 +1,58 @@
+<!DOCTYPE html> 
+<htxml xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"> 
+<head  th:replace="Fragments/base.html :: headerfiles(title='Officina')">  
+	</head> 
+ 	
+	<body>
+<header th:replace="Fragments/baseAdmin.html:: header"></header>
+	
+	<!-- Page content -->
+    <div class="stile-content stile-padding-large stile-margin-top">
+        <div class="stile-light-grey stile-padding-large stile-padding-32 stile-margin-top">
+        <div>
+        	<p>Cronologia Interventi</p>
+        </div>
+            <hr>
+             <div>
+			    <table>
+			        <thead>
+			            <tr>
+			
+			                <th>Cognome cliente</th>
+			                
+			                <th>Tipo intervento</th>
+			
+			                <th>Data Prenotazione</th>
+			                
+			                <th>Data Intervento</th>
+			                
+			                <th>Meccanico</th>
+			                <th></th>
+			
+			            </tr>
+			        </thead>
+			        <tbody>
+			        <div th:each="t : ${prenotazione}">
+			            <tr>
+			                <td th:text="${t.utente.cognome}"></td>
+			                <td th:text="${t.tipologia.nome}"></td>
+			                <td th:text="${t.data_prenotazione}"></td>
+			                <td th:text="${t.data_intervento}"></td>
+			                <td th:text="${t.meccanico}"></td>
+			                <td><a th:href="'confermaIntervento/'+${t.id}">CONF</a></td>
+			            </tr>
+			        </div>
+			        </tbody>
+			    </table>
+			</div>
+        </div>
+      </div>  
+        
+        
+        
+        
+        
+    <!-- End page content -->
+	</body>
+	<footer th:replace="Fragments/base.html:: footer"></footer>
+</html>

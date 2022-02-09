@@ -1,5 +1,8 @@
 package it.uniroma3.siw.controller;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,10 +18,12 @@ import it.uniroma3.siw.controller.validator.CredentialsValidator;
 import it.uniroma3.siw.controller.validator.UtenteValidator;
 import it.uniroma3.siw.model.Credentials;
 import it.uniroma3.siw.model.Meccanico;
+import it.uniroma3.siw.model.Prenotazione;
 import it.uniroma3.siw.model.TipologiaIntervento;
 import it.uniroma3.siw.model.Utente;
 import it.uniroma3.siw.service.CredentialsService;
 import it.uniroma3.siw.service.MeccanicoService;
+import it.uniroma3.siw.service.PrenotazioneService;
 import it.uniroma3.siw.service.TipologiaService;
 import it.uniroma3.siw.service.UtenteService;
 
@@ -37,6 +42,8 @@ public class MainController {
 	private UtenteService utenteService;
 	@Autowired
 	private MeccanicoService meccanicoService;
+	@Autowired
+	private PrenotazioneService prenotazioneService;
 	
 	//Sezione Index
 	
@@ -161,31 +168,69 @@ public class MainController {
 	
 	//Sezione Aggiungi-Prenota Intervento ADMIN
 	
-	@RequestMapping(value = "/admin/aggiungiIntervento", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/prenotaInterventi", method = RequestMethod.GET)
     public String aggiungiIntervento(Model model) {
 		model.addAttribute("tipi", tipologiaService.tipi());
-		return "admin/aggiungiInterventi";
-    }
-	
-	@GetMapping(value = "/admin/prenotaIntervento/{id}")
-    public String prenotaIntervento(@PathVariable("id") Long id, Model model) {
+		model.addAttribute("anagrafica", utenteService.anagrafica());
 		
-        model.addAttribute("meccanico", meccanicoService.listaMeccaniciAutorizzati(id));
-        
-        return "/admin/prenotaIntervento";
+		Prenotazione prenotazione = new Prenotazione();
+		model.addAttribute(prenotazione);
+		
+		return "admin/prenotaInterventi";
     }
 	
+	@RequestMapping(value = "/NuovaPrenotazione", method = RequestMethod.POST)
+    public String nuovarPenotazione(Model model, @ModelAttribute("prenotazione") Prenotazione prenotazione) {
+		
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+		prenotazione.setData_prenotazione(dtf.format(LocalDateTime.now()));
+		prenotazione.setConferma(false);
+		prenotazioneService.setPrenotazione(prenotazione);
+		
+		return "redirect:index";
+    }
 	
+	//Cronologia Interventi ADMIN
 	
+	@RequestMapping(value = "/admin/cronologiaInterventi", method = RequestMethod.GET)
+    public String cronologiaInterventi(Model model) {
+		model.addAttribute("prenotazione", prenotazioneService.infoPrenotazione());
+		
+		return "admin/cronologiaInterventi";
+    }
 	
+	@GetMapping(value = "/admin/confermaIntervento/{id}")
+    public String confermaIntervento(@PathVariable("id") Long id, Model model) {
+		
+		Prenotazione prenotazione = prenotazioneService.getPrenotazione(id);
+        model.addAttribute("meccanico", meccanicoService.listaMeccaniciAutorizzati(prenotazione.getTipologia().getId()));
+        model.addAttribute("p", prenotazione);
+        
+        model.addAttribute("mec", new Meccanico() );
+        
+        return "/admin/confermaIntervento";
+    }
 	
-	
-	
+	@RequestMapping(value = "/ConfermaPrenotazione", method = RequestMethod.POST)
+    public String confermaIntervento(Model model, @ModelAttribute("mec") String i) {
+		
+		System.out.println(i);
+		/*Prenotazione p = this.prenotazioneService.getPrenotazione(prenotazione.getId());
+		
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+		p.setData_Intervento(dtf.format(LocalDateTime.now()));
+		
+		p.setMeccanico(prenotazione.getMeccanico());
+		
+		*/
+		
+		//prenotazioneService.setPrenotazione(p);
+		return "redirect:/admin/cronologiaInterventi";
+    }
 	
 	//Funzione Accesso [ADMIN - User - Generico ]
 	
 	private void autorizzazione(Model model) {
-		System.out.println("PROVAPROVA");
 		model.addAttribute("ROLE", 3);
 		try {
 			UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();

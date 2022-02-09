@@ -1,0 +1,77 @@
+<!DOCTYPE html> 
+<htxml xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"> 
+<head  th:replace="Fragments/base.html :: headerfiles(title='Officina')">  
+	</head> 
+ 	
+	<body>
+		    <header th:replace="Fragments/baseAdmin.html:: header"></header>
+	
+	<!-- Page content -->
+    <div class="stile-content stile-padding-large stile-margin-top">
+        <!-- Contact -->
+        <div class="stile-light-grey stile-padding-large stile-padding-32 stile-margin-top">
+            <form  th:action="@{/NuovaPrenotazione}" method="POST" th:object="${prenotazione}">
+            <p>Scegli il cliente che vuole prenotare</p>
+            <hr>
+            <div>
+				  <table>
+				       <thead>
+				           <tr>
+				            <th></th>
+				               <th>Nome</th>
+				
+				               <th>Cognome</th>
+				
+				               <th>Telefono</th>
+				
+				           </tr>
+				       </thead>
+				       <tbody>
+				       <div th:each="a : ${anagrafica}">
+				           <tr>
+				            	<td><input th:field="*{utente}" th:value="${a.id}"  type="radio" name="table_anagrafica"/></td>             
+				                <td th:text="${a.nome}"></td>
+				                <td th:text="${a.cognome}"></td>
+				                <td th:text="${a.numero}"></td>
+				           </tr>
+				       </div>
+				       </tbody>
+				   </table>
+			</div>
+            <p>Scegli l'intervento da prenotare</p>
+            <hr>
+	             <div>
+				    <table>
+				        <thead>
+				            <tr>
+				            	<th></th>
+				                <th>Nome</th>
+				
+				                <th>Prezzo</th>
+				
+				                <th>Descrizione</th>
+				
+				            </tr>
+				        </thead>
+				        <tbody>
+				        <div th:each="t : ${tipi}">
+				            <tr>
+				            	<td><input th:field="*{tipologia}" th:value="${t.id}" type="radio" name="table_intervento"/></td>             
+				                <td th:text="${t.nome}"></td>
+				                <td th:text="${t.prezzo}+€"></td>
+				                <td th:text="${t.Descrizione}"></td>
+				            </tr>
+				        </div>
+				        </tbody>
+				    </table>
+				</div>
+				<br>
+				Descrivi il tuo veicolo
+				<hr>
+				 <textarea th:field="*{descrizione_veicolo}" id="descrizione_veicolo"></textarea>
+				<input style="width: 20%;" type="submit" value="Conferma">
+	        </form>
+        </div>
+     </div>   
+	</body>
+</html>
