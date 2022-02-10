@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 	<head th:fragment="headerfiles(title)">
 	<link th:href="@{/css/base.css}" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	</head>
 	<title>Officina</title>
 	<body>
@@ -13,9 +14,9 @@
 				</div>
 					<ul>
 						<li><a class="hover" th:href="@{index}">Home</a></li>
-						<li><a class="hover" th:href="@{register}">Interventi</a></li>
+						<li><a >Interventi</a></li>
 						<li><a class="hover" th:href="@{contatti}" >Contattaci</a></li>
-						<li><a id="myBtn"><img src="/images/login.png"></a></lis>
+						<li><a id="myBtn" class="material-icons">login</a></li>
 					</ul>
 			</div>		
 		

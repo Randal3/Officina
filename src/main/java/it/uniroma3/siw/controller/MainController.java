@@ -46,9 +46,7 @@ public class MainController {
 	private MeccanicoService meccanicoService;
 	@Autowired
 	private PrenotazioneService prenotazioneService;
-	
-	
-	private long prenotazione_id;
+
 	
 	//Sezione Index
 	
@@ -61,8 +59,20 @@ public class MainController {
 	//Sezione interventi
 	
 	@RequestMapping(value = "/interventi", method = RequestMethod.GET)
-    public String interventi() {
-		return "interventi";
+    public String interventi(Model model) {
+		
+		model.addAttribute("tipi", tipologiaService.tipi());
+		
+		return "/interventi";
+    }
+	
+	@GetMapping(value ="/cronologiaUtente")
+    public String cronologiaUtente(Model model) {
+        UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Credentials credentials = credentialService.getCredentials(userDetails.getUsername());
+        Utente utente = credentials.getUser();
+        model.addAttribute("prenotazione",prenotazioneService.findByUtente(utente));
+        return "cronologiaUtente";
     }
 	
 	//Sezione registrazione
@@ -85,7 +95,6 @@ public class MainController {
             credentials.setUser(user);
             credentialService.saveCredentials(credentials);
             model.addAttribute("ROLE", 3);
-            System.out.println("SONO USER");
             return "index";
         }
         return "register";
@@ -113,6 +122,7 @@ public class MainController {
 		return "contatti";
     }
 	
+	//ADMIN
 	//Sezione modifica  Interventi ADMIN
 	
 	@RequestMapping(value = "/admin/modificaInterventi", method = RequestMethod.GET)
@@ -233,22 +243,22 @@ public class MainController {
         model.addAttribute("meccanico", meccanicoService.listaMeccaniciAutorizzati(prenotazione.getTipologia().getId()));
         model.addAttribute("prenotazione", prenotazione);
         
-        prenotazione_id = prenotazione.getId();
         return "/admin/confermaIntervento";
     }
 	
-	@RequestMapping(value = "/ConfermaPrenotazione", method = RequestMethod.POST)
-    public String confermaIntervento(Model model, @ModelAttribute("prenotazione") Prenotazione prenotazione) {
+	@PostMapping(value = "/admin/ConfermaPrenotazione")
+    public String confermaIntervento(@RequestParam Long ClienteId, Model model, @ModelAttribute("prenotazione") Prenotazione prenotazione) {
+		
 		Meccanico meccanico = prenotazione.getMeccanico();
 		Date data = prenotazione.getData_intervento();
-		prenotazione = prenotazioneService.getPrenotazione(prenotazione_id);
+		prenotazione = prenotazioneService.getPrenotazione(ClienteId);
 		prenotazione.setMeccanico(meccanico);
 		prenotazione.setData_intervento(data);
 		prenotazione.conferma();
 		prenotazioneService.setPrenotazione(prenotazione);
 		return "redirect:/admin/cronologiaInterventi";
     }
-	
+
 	//Informazioni Interventi ADMIN
 	
 	@GetMapping(value = "/admin/infoIntervento/{id}")

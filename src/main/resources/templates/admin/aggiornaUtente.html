@@ -19,7 +19,10 @@
 	                
 	                <label class="scritte">Telefono</label>
 	                <input type="text" minlength="10" maxlength="10" pattern="[0-9]+" th:field="*{numero}" th:value="*{numero}">
-	             <input type="submit" value="Aggiorna">
+	                <div style="display: flex; justify-content: space-between;">
+		                <p><button style="background-color: rgb(128, 128, 128);" class ="bottone"><a style="color: black;" th:href="@{/admin/visualizzaClienti}">Indietro</a></button></p>
+		             	<p><input style="background-color: green;" type="submit" value="Aggiorna"></p>
+		            </div>
 			 </form>   
         </div>
      </div>   

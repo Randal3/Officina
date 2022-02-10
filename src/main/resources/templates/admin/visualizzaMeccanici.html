@@ -1,5 +1,5 @@
 <htxml xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"> 
-<head  th:replace="Fragments/base.html :: headerfiles(title='Officina')">  
+<head  th:replace="Fragments/baseAdmin.html :: headerfiles(title='Officina')">  
 	</head> 
  	
 	<body>
@@ -49,7 +49,8 @@
 						        </tbody>
 						    </table>
                             </div>
-                            <input type="submit">
+                            <br>
+                            <input type="submit" value="Aggiungi">
                         </form>
 				    </div>
 				  </div>
@@ -79,16 +80,8 @@
 			    </table>
 			</div>
         </div>
-        
-        
-        
-        
-        
-        
-    <!-- End page content -->
     </div>
 	</body>
-	<footer th:replace="Fragments/base.html:: footer"></footer>
 	<script>
 		// Get the modal
 		var modal = document.getElementById("myModal");

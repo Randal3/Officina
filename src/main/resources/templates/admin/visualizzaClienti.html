@@ -1,5 +1,5 @@
 <!DOCTYPE html> 
-<htxml"http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"> 
+<htxml xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"> 
 <head  th:replace="Fragments/baseAdmin.html :: headerfiles(title='Officina')">  
 	</head> 
  	
@@ -8,7 +8,7 @@
 	
 	<!-- Page content -->
     <div class="stile-content stile-padding-large stile-margin-top">
-        <div style="margin-bottom: 200px;"  class="stile-light-grey stile-padding-large stile-padding-32 stile-margin-top">
+        <div  class="stile-light-grey stile-padding-large stile-padding-32 stile-margin-top">
         <div style="display: flex; justify-content: space-between;">
         	<p>Lista Clienti registrati</p>
         	<p><button class ="bottone" id="myBtn">Aggiungi</button></p>
@@ -73,12 +73,7 @@
 			</div>
         </div>
       </div>  
-        
-        
-        
-        
-        
-    <!-- End page content -->
+
 	</body>
 	<script>
 		// Get the modal

@@ -1,10 +1,10 @@
 <!DOCTYPE html> 
 <htxml xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"> 
-<head  th:replace="Fragments/baseAdmin.html :: headerfiles(title='Officina')">  
+<head  th:replace="Fragments/user.html :: headerfiles(title='Officina')">  
 	</head> 
  	
 	<body>
-<header th:replace="Fragments/baseAdmin.html:: header"></header>
+<header th:replace="Fragments/user.html:: header"></header>
 	
 	<!-- Page content -->
     <div class="stile-content stile-padding-large stile-margin-top">
@@ -17,8 +17,6 @@
 			    <table>
 			        <thead>
 			            <tr>
-			
-			                <th>Cognome cliente</th>
 			                
 			                <th>Tipo intervento</th>
 			                
@@ -27,22 +25,16 @@
 			                <th>Meccanico</th>
 			                
 			                <th></th>
-			                <th></th>
-			                <th></th>
 			
 			            </tr>
 			        </thead>
 			        <tbody>
 			        <div th:each="t : ${prenotazione}">
 			            <tr>
-			                <td th:text="${t.utente.cognome}"></td>
 			                <td th:text="${t.tipologia.nome}"></td>
 			                <td th:text="${t.data_intervento}"></td>
 			                <td><span th:if="${t.conferma}"th:text="${t.meccanico.nome}"></span>
 			                    <span th:unless="${t.conferma}" ></span></td>
-			                <td style="text-align: center;"><a th:href="'infoIntervento/'+${t.id}" style="color: rgb(128, 128, 128);" class="material-icons">info</a></td>
-			                <td style="text-align: center;"><span th:if="${t.conferma}"></span>
-			                    <span th:unless="${t.conferma}"><a th:href="'confermaIntervento/'+${t.id}" class="material-icons">settings</a></span></td>
 			                <td style="text-align: center;"><span th:if="${t.status}"><i style="color: rgb(128, 255, 0);" class="material-icons">done</i></span>
 			                    <span th:unless="${t.status}" ><i style="color: rgb(255, 128, 64);" class="material-icons">hourglass_bottom</i></span></td>
 			            </tr>
@@ -52,5 +44,12 @@
 			</div>
         </div>
       </div>  
+        
+        
+        
+        
+        
+    <!-- End page content -->
 	</body>
+	<footer th:replace="Fragments/base.html:: footer"></footer>
 </html>

@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 	<head th:fragment="headerfiles(title)">
 	<link th:href="@{/css/base.css}" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	</head>
 	<title>Officina</title>
 	<body>
@@ -18,8 +19,8 @@
 							     	<i class="fa fa-caret-down"></i>
 							    </a>
 							    <div class="dropdown-content">
-							      <a href="#">PrenotaIntervento</a>
-							      <a href="#">Cronologia Interventi</a>
+							      <a th:href="@{/interventi}">Lista interventi</a>
+							      <a th:href="@{/cronologiaUtente}">Cronologia Interventi</a>
 							    </div>
 							</div>
 						</li>
