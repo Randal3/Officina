@@ -24,9 +24,12 @@ public class Prenotazione {
     
     @Column
     private boolean conferma;
+    
+    @Column
+    private boolean status;
 
-    @DateTimeFormat(pattern = "yyyy/MM/dd")
-    private String data_intervento;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date data_intervento;
 
     @ManyToOne
     private Meccanico meccanico;
@@ -40,12 +43,13 @@ public class Prenotazione {
 	public void setData_prenotazione(String now) {
 		this.data_prenotazione = now;
 	}
-	
-	public void setData_Intervento(String now) {
-		this.data_intervento = now;
-	}
 
 	public void conferma() {
 		this.conferma = true;
+	}
+	
+
+	public void setStatus() {
+		this.status = true;
 	}
 }

@@ -34,4 +34,9 @@ public class PrenotazioneService {
 		Optional<Prenotazione> prenotazione = this.prenotazioneRepository.findById(id);
         return prenotazione.orElse(null);
     }
+	
+    @Transactional
+	public void elimina(long id) {
+		this.prenotazioneRepository.deleteById(id);
+	}
 }

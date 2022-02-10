@@ -1,6 +1,6 @@
 <!DOCTYPE html> 
 <htxml"http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"> 
-<head  th:replace="Fragments/base.html :: headerfiles(title='Officina')">  
+<head  th:replace="Fragments/baseAdmin.html :: headerfiles(title='Officina')">  
 	</head> 
  	
 	<body>
@@ -8,7 +8,7 @@
 	
 	<!-- Page content -->
     <div class="stile-content stile-padding-large stile-margin-top">
-        <div class="stile-light-grey stile-padding-large stile-padding-32 stile-margin-top">
+        <div style="margin-bottom: 200px;"  class="stile-light-grey stile-padding-large stile-padding-32 stile-margin-top">
         <div style="display: flex; justify-content: space-between;">
         	<p>Lista Clienti registrati</p>
         	<p><button class ="bottone" id="myBtn">Aggiungi</button></p>
@@ -20,15 +20,15 @@
 				  <div class="modal-content">
 				    <span class="close">&times;</span>
 				    <div>
-				      <form th:action="@{/register}" method="POST">
+				      <form th:action="@{/registerAdmin}" method="POST">
 			                <label for="fname" class="scritte">Nome</label>
-			                <input type="text" id="fname" name="nome" placeholder="Your name" required>
+			                <input type="text" id="fname" name="nome" placeholder="Nome" required>
 			            
 			                <label for="lname" class="scritte">Cognome</label>
-			                <input type="text" id="lname" name="cognome" placeholder="Your last name" required>
+			                <input type="text" id="lname" name="cognome" placeholder="Cognome" required>
 			                
 			                <label for="lname" class="scritte">Telefono</label>
-			                <input type="tell" minlength="10" maxlength="10" pattern="[0-9]+" id="lname" name="numero" placeholder="Your Number">
+			                <input type="tell" minlength="10" maxlength="10" pattern="[0-9]+" id="lname" name="numero" placeholder="Numero">
 			                
 			                <label for="lname" class="scritte" >Username</label>
 			                <input type="text" id="lname" name="username" required>
@@ -52,6 +52,7 @@
 			
 			                <th>Numero</th>
 			                <th></th>
+			                <th></th>
 			
 			            </tr>
 			        </thead>
@@ -61,7 +62,10 @@
 			                <td th:text="${t.nome}"></td>
 			                <td th:text="${t.cognome}"></td>
 			                <td th:text="${t.numero}"></td>
-			                <td> Modifica <a th:href="'eliminaUtente/'+${t.id}">DROP</a> </td>
+			                <td style="text-align: center;"> 
+			                <a style="color: rgb(128, 128, 128);" th:href="'aggiornaUtente/'+ ${t.id}" class="material-icons">manage_accounts</a></td>
+			                <td style="text-align: center;"> 
+			                <a style="color: red;" th:href="'eliminaUtente/'+${t.id}" class="material-icons">delete</a> </td>
 			            </tr>
 			        </div>
 			        </tbody>

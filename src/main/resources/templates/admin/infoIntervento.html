@@ -1,0 +1,49 @@
+<!DOCTYPE html> 
+<htxml xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"> 
+<head  th:replace="Fragments/base.html :: headerfiles(title='Officina')">  
+	</head> 
+ 	
+	<body>
+		    <header th:replace="Fragments/baseAdmin.html:: header"></header>
+	
+	<!-- Page content -->
+    <div class="stile-content stile-padding-large stile-margin-top">
+        <!-- Contact -->
+        <div class="stile-light-grey stile-padding-large stile-padding-32 stile-margin-top" th:object="${prenotazione}">
+			
+	                <label class="scritte">Nome</label>
+	                <input type="text" th:value="*{utente.nome}" readonly="readonly">
+	            
+	                <label  class="scritte">Cognome</label>
+	                <input type="text" th:value="*{utente.cognome}" readonly="readonly">
+	                
+	                <label class="scritte">Telefono</label>
+	                <input type="text" th:value="*{utente.numero}" readonly="readonly">
+	                
+	                <label class="scritte" >Descrizione veicolo</label>
+	                <input type="text" th:value="*{descrizione_veicolo}" readonly="readonly">
+	                
+	                <label  class="scritte">Nome Meccanico</label><br>
+	                <span th:if="*{conferma}"><input type="text" th:value="*{meccanico.nome}" readonly="readonly"></span>
+			        <span th:unless="*{conferma}" ><input type="text"  readonly="readonly" value="NON ASSEGNATO"></span>
+	            
+	                <label  class="scritte">Cognome Meccanico</label><br>
+	                <span th:if="*{conferma}"><input type="text" th:value="*{meccanico.cognome}" readonly="readonly"></span>
+			        <span th:unless="*{conferma}" ><input type="text" readonly="readonly" value="NON ASSEGNATO"></span>
+	                
+	                <label class="scritte">Tipo Intervento</label>
+	                <input type="text" th:value="*{tipologia.nome}" readonly="readonly">
+	                
+	                <label class="scritte" >Data Prenotazione</label>
+	                <input type="text" th:value="*{data_prenotazione}" readonly="readonly">
+	               	
+	               	<div style="display: flex; justify-content: space-between;">
+		                <span th:if="*{status}"></span>
+				        <span th:unless="*{status}"><p><button style="background-color: green;" class ="bottone"><a style="color: black;" th:href="'/admin/statusIntervento/'+*{id}">Conferma Intervento</a></button></p></span>
+		
+						<p><button class ="bottone"><a style="color: black;" th:href="'/admin/eliminaIntervento/'+*{id}">ELIMINA</a></button></p>
+	               	</div>
+        </div>
+     </div>   
+	</body>
+</html>

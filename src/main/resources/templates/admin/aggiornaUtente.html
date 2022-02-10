@@ -1,0 +1,27 @@
+<!DOCTYPE html> 
+<htxml xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"> 
+<head  th:replace="Fragments/baseAdmin.html :: headerfiles(title='Officina')">  
+	</head> 
+ 	
+	<body>
+		    <header th:replace="Fragments/baseAdmin.html:: header"></header>
+	
+	<!-- Page content -->
+    <div class="stile-content stile-padding-large stile-margin-top">
+        <!-- Contact -->
+        <div class="stile-light-grey stile-padding-large stile-padding-32 stile-margin-top" >
+			<form th:action="@{/admin/aggiornaUtenti/(ClienteId=${utente.id})}" method="POST" th:object="${utente}">
+	                <label class="scritte">Nome</label>
+	                <input type="text" th:field="*{nome}" th:value="*{nome}">
+	            
+	                <label  class="scritte">Cognome</label>
+	                <input type="text" th:field="*{cognome}" th:value="*{cognome}">
+	                
+	                <label class="scritte">Telefono</label>
+	                <input type="text" minlength="10" maxlength="10" pattern="[0-9]+" th:field="*{numero}" th:value="*{numero}">
+	             <input type="submit" value="Aggiorna">
+			 </form>   
+        </div>
+     </div>   
+	</body>
+</html>

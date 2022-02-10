@@ -2,7 +2,7 @@ package it.uniroma3.siw.controller;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
+import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,8 +12,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import it.uniroma3.siw.controller.validator.CredentialsValidator;
 import it.uniroma3.siw.controller.validator.UtenteValidator;
 import it.uniroma3.siw.model.Credentials;
@@ -47,6 +49,7 @@ public class MainController {
 	
 	
 	private long prenotazione_id;
+	
 	//Sezione Index
 	
 	@RequestMapping(value = {"/index", "/"}, method = RequestMethod.GET)
@@ -148,6 +151,28 @@ public class MainController {
         return "redirect:/admin/visualizzaClienti";
     }
 	
+	@GetMapping(value = "/admin/aggiornaUtente/{id}")
+    public String aggiornaUtente(@PathVariable("id") Long id, Model model) {
+		
+		Utente utente = this.utenteService.getUtente(id);
+		model.addAttribute("utente", utente);
+        
+        return "/admin/aggiornaUtente";
+    }
+	
+	@PostMapping(value = "/admin/aggiornaUtenti")
+    public String aggiornaUtenti(@RequestParam Long ClienteId, Model model, @ModelAttribute("utente") Utente utente) {
+		
+        Utente utente_attuale = this.utenteService.getUtente(ClienteId);
+
+        utente_attuale.setNome(utente.getNome());
+        utente_attuale.setCognome(utente.getCognome());
+        utente_attuale.setNumero(utente.getNumero());
+        this.utenteService.saveUser(utente_attuale);
+		
+        return "redirect:/admin/visualizzaClienti";
+    }
+	
 	//Sezione Visualizza Meccanici ADMIN
 	
 	@RequestMapping(value = "/admin/visualizzaMeccanici", method = RequestMethod.GET)
@@ -184,10 +209,9 @@ public class MainController {
 	
 	@RequestMapping(value = "/NuovaPrenotazione", method = RequestMethod.POST)
     public String nuovarPenotazione(Model model, @ModelAttribute("prenotazione") Prenotazione prenotazione) {
-		System.out.println(prenotazione.getData_intervento());
+		
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 		prenotazione.setData_prenotazione(dtf.format(LocalDateTime.now()));
-		prenotazione.setConferma(false);
 		prenotazioneService.setPrenotazione(prenotazione);
 		
 		return "redirect:index";
@@ -216,16 +240,57 @@ public class MainController {
 	@RequestMapping(value = "/ConfermaPrenotazione", method = RequestMethod.POST)
     public String confermaIntervento(Model model, @ModelAttribute("prenotazione") Prenotazione prenotazione) {
 		Meccanico meccanico = prenotazione.getMeccanico();
+		Date data = prenotazione.getData_intervento();
 		prenotazione = prenotazioneService.getPrenotazione(prenotazione_id);
 		prenotazione.setMeccanico(meccanico);
+		prenotazione.setData_intervento(data);
 		prenotazione.conferma();
-		/*
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-		p.setData_Intervento(dtf.format(LocalDateTime.now()));
-		*/
-		
 		prenotazioneService.setPrenotazione(prenotazione);
 		return "redirect:/admin/cronologiaInterventi";
+    }
+	
+	//Informazioni Interventi ADMIN
+	
+	@GetMapping(value = "/admin/infoIntervento/{id}")
+    public String infoIntervento(@PathVariable("id") Long id, Model model) {
+		
+		Prenotazione prenotazione = prenotazioneService.getPrenotazione(id);
+        model.addAttribute("prenotazione", prenotazione);
+
+        
+        return "/admin/infoIntervento";
+    }
+	
+	@GetMapping(value = "/admin/eliminaIntervento/{id}")
+    public String eliminaIntervento(@PathVariable("id") Long id) {
+		
+		this.prenotazioneService.elimina(id);
+        
+        return "redirect:/admin/cronologiaInterventi";
+    }
+	
+	@GetMapping(value = "/admin/statusIntervento/{id}")
+    public String statusIntervento(@PathVariable("id") Long id) {
+		System.out.println("SONO QUI " + this.prenotazioneService.getPrenotazione(id));
+		Prenotazione prenotazione = this.prenotazioneService.getPrenotazione(id);
+		prenotazione.setStatus();
+		prenotazioneService.setPrenotazione(prenotazione);
+		
+        return "redirect:/admin/cronologiaInterventi";
+    }
+	
+	//REGISTER ADMIN
+	
+	@RequestMapping(value = "/registerAdmin" , method = RequestMethod.POST)
+    public String registerAdmin(@ModelAttribute("user") Utente user, BindingResult userBindingResult, @ModelAttribute("credentials") Credentials credentials, BindingResult credentialsBindingResult, Model model) {
+
+        this.userValidator.validate(user, userBindingResult);
+        this.credentialsValidator.validate(credentials, credentialsBindingResult);
+        if(!userBindingResult.hasErrors() && !credentialsBindingResult.hasErrors()) {
+            credentials.setUser(user);
+            credentialService.saveCredentials(credentials);
+        }
+        return "redirect:/admin/visualizzaClienti";
     }
 	
 	//Funzione Accesso [ADMIN - User - Generico ]
