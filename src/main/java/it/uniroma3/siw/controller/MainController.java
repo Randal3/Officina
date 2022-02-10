@@ -45,6 +45,8 @@ public class MainController {
 	@Autowired
 	private PrenotazioneService prenotazioneService;
 	
+	
+	private long prenotazione_id;
 	//Sezione Index
 	
 	@RequestMapping(value = {"/index", "/"}, method = RequestMethod.GET)
@@ -80,6 +82,7 @@ public class MainController {
             credentials.setUser(user);
             credentialService.saveCredentials(credentials);
             model.addAttribute("ROLE", 3);
+            System.out.println("SONO USER");
             return "index";
         }
         return "register";
@@ -181,7 +184,7 @@ public class MainController {
 	
 	@RequestMapping(value = "/NuovaPrenotazione", method = RequestMethod.POST)
     public String nuovarPenotazione(Model model, @ModelAttribute("prenotazione") Prenotazione prenotazione) {
-		
+		System.out.println(prenotazione.getData_intervento());
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 		prenotazione.setData_prenotazione(dtf.format(LocalDateTime.now()));
 		prenotazione.setConferma(false);
@@ -204,27 +207,24 @@ public class MainController {
 		
 		Prenotazione prenotazione = prenotazioneService.getPrenotazione(id);
         model.addAttribute("meccanico", meccanicoService.listaMeccaniciAutorizzati(prenotazione.getTipologia().getId()));
-        model.addAttribute("p", prenotazione);
+        model.addAttribute("prenotazione", prenotazione);
         
-        model.addAttribute("mec", new Meccanico() );
-        
+        prenotazione_id = prenotazione.getId();
         return "/admin/confermaIntervento";
     }
 	
 	@RequestMapping(value = "/ConfermaPrenotazione", method = RequestMethod.POST)
-    public String confermaIntervento(Model model, @ModelAttribute("mec") String i) {
-		
-		System.out.println(i);
-		/*Prenotazione p = this.prenotazioneService.getPrenotazione(prenotazione.getId());
-		
+    public String confermaIntervento(Model model, @ModelAttribute("prenotazione") Prenotazione prenotazione) {
+		Meccanico meccanico = prenotazione.getMeccanico();
+		prenotazione = prenotazioneService.getPrenotazione(prenotazione_id);
+		prenotazione.setMeccanico(meccanico);
+		prenotazione.conferma();
+		/*
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 		p.setData_Intervento(dtf.format(LocalDateTime.now()));
-		
-		p.setMeccanico(prenotazione.getMeccanico());
-		
 		*/
 		
-		//prenotazioneService.setPrenotazione(p);
+		prenotazioneService.setPrenotazione(prenotazione);
 		return "redirect:/admin/cronologiaInterventi";
     }
 	

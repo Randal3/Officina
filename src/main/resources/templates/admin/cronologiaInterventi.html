@@ -27,6 +27,8 @@
 			                <th>Data Intervento</th>
 			                
 			                <th>Meccanico</th>
+			                
+			                <th>Info</th>
 			                <th></th>
 			
 			            </tr>
@@ -38,8 +40,11 @@
 			                <td th:text="${t.tipologia.nome}"></td>
 			                <td th:text="${t.data_prenotazione}"></td>
 			                <td th:text="${t.data_intervento}"></td>
-			                <td th:text="${t.meccanico}"></td>
-			                <td><a th:href="'confermaIntervento/'+${t.id}">CONF</a></td>
+			                <td><span th:if="${t.conferma}"th:text="${t.meccanico.nome}"></span>
+			                    <span th:unless="${t.conferma}" ></span></td>
+			                <td>INFO</td>
+			                <td><span th:if="${t.conferma}">OK</span>
+			                    <span th:unless="${t.conferma}"><a th:href="'confermaIntervento/'+${t.id}">CONF</a></span></td>
 			            </tr>
 			        </div>
 			        </tbody>

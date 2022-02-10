@@ -12,7 +12,7 @@
         <div class="stile-light-grey stile-padding-large stile-padding-32 stile-margin-top">
         	<p>Scegli il meccanico specializzato</p>
             <hr>
-            <form  th:action="@{/ConfermaPrenotazione}" method="POST" th:object="${mec}">
+            <form  th:action="@{/ConfermaPrenotazione}" method="POST" th:object="${prenotazione}">
 	             <div>
 				    <table>
 				        <thead>
@@ -27,7 +27,7 @@
 				        <tbody>
 				        <div th:each="t : ${meccanico}">
 							<tr>
-								 <td><input th:field="${mec}" th:value="${t.id}" type="radio"/></td>
+								 <td><input th:field="*{meccanico}" th:value="${t.id}" type="radio"/></td>
 								 <td th:text="${t.nome}"></td>
 								 <td th:text="${t.cognome}"></td>
 							</tr>

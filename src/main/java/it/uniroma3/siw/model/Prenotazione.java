@@ -44,4 +44,8 @@ public class Prenotazione {
 	public void setData_Intervento(String now) {
 		this.data_intervento = now;
 	}
+
+	public void conferma() {
+		this.conferma = true;
+	}
 }

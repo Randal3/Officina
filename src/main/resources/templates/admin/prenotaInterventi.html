@@ -66,6 +66,11 @@
 				    </table>
 				</div>
 				<br>
+				Seleziona la data in cui vorresti effettuare l'intervento
+				<hr>
+				<input th:field="*{data_intervento}" th:value="${data_intervento}" type="date" id="data_intervento" name="data_intervento">
+				<br>
+				<br>
 				Descrivi il tuo veicolo
 				<hr>
 				 <textarea th:field="*{descrizione_veicolo}" id="descrizione_veicolo"></textarea>
