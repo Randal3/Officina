@@ -22,19 +22,24 @@
 				    <div>
 				      <form th:action="@{/registerAdmin}" method="POST">
 			                <label for="fname" class="scritte">Nome</label>
-			                <input type="text" id="fname" name="nome" placeholder="Nome" required>
+			                <input type="text" id="fname" name="nome" placeholder="Nome">
+			                <span class="errore" th:if="${#fields.hasErrors('user.nome')}" th:errors="${user.nome}"></span><br>
 			            
 			                <label for="lname" class="scritte">Cognome</label>
-			                <input type="text" id="lname" name="cognome" placeholder="Cognome" required>
+			                <input type="text" id="lname" name="cognome" placeholder="Cognome">
+			                <span class="errore" th:if="${#fields.hasErrors('user.cognome')}" th:errors="${user.cognome}" ></span><br>
 			                
 			                <label for="lname" class="scritte">Telefono</label>
 			                <input type="tell" minlength="10" maxlength="10" pattern="[0-9]+" id="lname" name="numero" placeholder="Numero">
+			                <span class="errore" th:if="${#fields.hasErrors('user.numero')}" th:errors="${user.numero}" ></span><br>
 			                
 			                <label for="lname" class="scritte" >Username</label>
-			                <input type="text" id="lname" name="username" required>
+			                <input type="text" id="lname" name="username">
+			                <span class="errore" th:if="${#fields.hasErrors('credentials.username')}" th:errors="${credentials.username}" ></span><br>
 			                
 			                <label for="lname" class="scritte">Password</label>
-			                <input type="password" id="lname" name="password" required>
+			                <input type="password" id="lname" name="password">
+			                <span class="errore" th:if="${#fields.hasErrors('credentials.password')}" th:errors="${credentials.password}" ></span><br>
 			
 			                <input type="submit" value="Registrati">
 			           </form>
@@ -57,7 +62,7 @@
 			            </tr>
 			        </thead>
 			        <tbody>
-			        <div th:each="t : ${anagrafica}">
+			        <div th:each="t : ${users}">
 			            <tr>
 			                <td th:text="${t.nome}"></td>
 			                <td th:text="${t.cognome}"></td>

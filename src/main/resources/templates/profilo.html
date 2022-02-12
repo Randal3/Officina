@@ -1,6 +1,6 @@
 <!DOCTYPE html> 
 <htxml"http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"> 
-<head  th:replace="Fragments/base.html :: headerfiles(title='Officina')">  
+<head  th:replace="Fragments/user.html :: headerfiles(title='Officina')">  
 	</head> 
  	
 	<body>
@@ -10,17 +10,24 @@
 		    <div th:case="'3'"><header th:replace="Fragments/base.html:: header"></header></div>
 		</td>
 	
-	<!-- Page content -->
+<!-- Page content -->
     <div class="stile-content stile-padding-large stile-margin-top">
         <!-- Contact -->
-        <div class="stile-light-grey stile-padding-large stile-padding-32 stile-margin-top">
-            <h3>Contact</h3>
-            <hr>
-            <p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non congue ullam corper. Praesent tincidunt sed tellus.</p>
-            
+        <div class="stile-light-grey stile-padding-large stile-padding-32 stile-margin-top" th:object="${utente}">
+			
+	                <label class="scritte">Nome</label>
+	                <input type="text" th:value="*{nome}" readonly="readonly">
+	            
+	                <label  class="scritte">Cognome</label>
+	                <input type="text" th:value="*{cognome}" readonly="readonly">
+	                
+	                <label class="scritte">Telefono</label>
+	                <input type="text" th:value="*{numero}" readonly="readonly">
+	                
+	                <p><button style="background-color: rgb(128, 255, 0);" class ="bottone"><a style="color: black;" th:href="@{index}">Home</a></button></p>
+	                
         </div>
-    <!-- End page content -->
-    </div>
+     </div>   
+     <footer th:replace="Fragments/base.html:: footer"></footer>
 	</body>
-	<footer th:replace="Fragments/base.html:: footer"></footer>
 </html>

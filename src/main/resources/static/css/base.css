@@ -1,6 +1,7 @@
 		body {
 			margin :0;
 			font-size: 28px;
+			font-family: 'Roboto', sans-serif;
 		}
 		
 		ul {
@@ -44,7 +45,7 @@
 		}
 
 		.titolo .center{
-			font-size: 2em;
+			font-size: 2.8em;
 			text-align: center;
 			padding-bottom: 50px;
 		}
@@ -54,6 +55,11 @@
 			text-align: center;
 			margin-top: -20px;
 			padding-bottom: 20px;
+		}
+		
+		.errore{
+			color: red;
+			 font-size: 15px;
 		}
 		
 		input:focus, button:focus {outline:0;}
@@ -75,13 +81,6 @@ p{
 
 ul li{ 
 	list-style:none;
-}
-
-html,body{
-	font-family: 'Roboto Slab', serif;
-	color:#666 /*color-text*/;
-	height:100%;
-	width:100%;
 }
 
 h1{
@@ -332,12 +331,6 @@ div#verticale {
 			margin-bottom: 150px;
             padding-top: 32px!important;
             padding-bottom: 32px!important;
-        }
- 
-         .boximgstoria{
-            width: 30%; 
-            height: 300px; 
-            background-color: #000;
         }
 
         .boxstoria{

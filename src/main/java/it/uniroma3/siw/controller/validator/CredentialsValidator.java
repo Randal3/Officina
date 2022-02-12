@@ -16,9 +16,9 @@ public class CredentialsValidator implements Validator {
     @Autowired
     private CredentialsService credentialsService;
 
-    final Integer MAX_USERNAME_LENGTH = 20;
+    final Integer MAX_USERNAME_LENGTH = 10;
     final Integer MIN_USERNAME_LENGTH = 4;
-    final Integer MAX_PASSWORD_LENGTH = 20;
+    final Integer MAX_PASSWORD_LENGTH = 14;
     final Integer MIN_PASSWORD_LENGTH = 6;
 
     @Override

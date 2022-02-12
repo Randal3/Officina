@@ -3,14 +3,17 @@
 	<head th:fragment="headerfiles(title)">
 	<link th:href="@{/css/base.css}" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@1,100&family=Roboto:wght@100&display=swap" rel="stylesheet">
 	</head>
 	<title>Officina</title>
 	<body>
 		<header>
 			<div class="background">
 				<div class="titolo">
-					<p class="center">OFFICINASIW</p>
-					<p class="piccolo">La miglior Officina del quartiere</p>
+					<p class="center" style="font-family: fantasy;" >OFFICINASIW</p>
+					<p class="piccolo" style="font-family: Times New Roman, Times, serif;">La miglior Officina del quartiere</p>
 				</div>
 					<ul>
 						<li><a class="hover" th:href="@{index}">Home</a></li>

@@ -56,25 +56,14 @@ public class MainController {
 		return "index";
     }
 	
-	//Sezione interventi
+	//Sezione contatti
 	
-	@RequestMapping(value = "/interventi", method = RequestMethod.GET)
-    public String interventi(Model model) {
-		
-		model.addAttribute("tipi", tipologiaService.tipi());
-		
-		return "/interventi";
+	@RequestMapping(value = "/contatti", method = RequestMethod.GET)
+    public String contatti(Model model) {
+		autorizzazione(model);
+		return "contatti";
     }
-	
-	@GetMapping(value ="/cronologiaUtente")
-    public String cronologiaUtente(Model model) {
-        UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Credentials credentials = credentialService.getCredentials(userDetails.getUsername());
-        Utente utente = credentials.getUser();
-        model.addAttribute("prenotazione",prenotazioneService.findByUtente(utente));
-        return "cronologiaUtente";
-    }
-	
+
 	//Sezione registrazione
 	
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
@@ -100,27 +89,39 @@ public class MainController {
         return "register";
     }
 	
-	//Sezione logout
-	@RequestMapping(value = "/logout", method = RequestMethod.GET) 
-	public String logout() {
-		return "index";
-	}
-	
 	//Sezione profilo
 	
 	@RequestMapping(value = "/profilo", method = RequestMethod.GET)
     public String profilo(Model model) {
 		autorizzazione(model);
+		
+		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Credentials credentials = credentialService.getCredentials(userDetails.getUsername());
+        Utente utente = credentials.getUser();
+        model.addAttribute("utente", utente);
+		
 		return "profilo";
     }
 	
-	//Sezione contatti
+	//Sezione interventi
 	
-	@RequestMapping(value = "/contatti", method = RequestMethod.GET)
-    public String contatti(Model model) {
-		autorizzazione(model);
-		return "contatti";
-    }
+		@RequestMapping(value = "/interventi", method = RequestMethod.GET)
+	    public String interventi(Model model) {
+			
+			model.addAttribute("tipi", tipologiaService.tipi());
+			
+			return "/interventi";
+	    }
+		
+		@GetMapping(value ="/cronologiaUtente")
+	    public String cronologiaUtente(Model model) {
+	        UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	        Credentials credentials = credentialService.getCredentials(userDetails.getUsername());
+	        Utente utente = credentials.getUser();
+	        model.addAttribute("prenotazione",prenotazioneService.findByUtente(utente));
+	        return "cronologiaUtente";
+	    }
+		
 	
 	//ADMIN
 	//Sezione modifica  Interventi ADMIN
@@ -146,8 +147,12 @@ public class MainController {
 	
 	@RequestMapping(value = "/admin/visualizzaClienti", method = RequestMethod.GET)
     public String visualizzaClienti(Model model) {
+		Utente utente = new Utente();
+		Credentials credenziali = new Credentials();
+		model.addAttribute("user", utente);
+		model.addAttribute("credentials", credenziali);
 		
-		model.addAttribute("anagrafica", utenteService.anagrafica());
+		model.addAttribute("users", utenteService.anagrafica());
 		
 		return "admin/visualizzaClienti";
     }
@@ -171,7 +176,7 @@ public class MainController {
     }
 	
 	@PostMapping(value = "/admin/aggiornaUtenti")
-    public String aggiornaUtenti(@RequestParam Long ClienteId, Model model, @ModelAttribute("utente") Utente utente) {
+    public String aggiornaUtenti(@RequestParam Long ClienteId, Model model,@ModelAttribute("utente") Utente utente) {
 		
         Utente utente_attuale = this.utenteService.getUtente(ClienteId);
 
@@ -181,6 +186,22 @@ public class MainController {
         this.utenteService.saveUser(utente_attuale);
 		
         return "redirect:/admin/visualizzaClienti";
+    }
+	
+	//REGISTER ADMIN
+	
+	@RequestMapping(value = "/registerAdmin" , method = RequestMethod.POST)
+    public String registerAdmin(@ModelAttribute("user") Utente user, BindingResult userBindingResult, @ModelAttribute("credentials") Credentials credentials, BindingResult credentialsBindingResult, Model model) {
+
+        this.userValidator.validate(user, userBindingResult);
+        this.credentialsValidator.validate(credentials, credentialsBindingResult);
+        if(!userBindingResult.hasErrors() && !credentialsBindingResult.hasErrors()) {
+            credentials.setUser(user);
+            credentialService.saveCredentials(credentials);
+            return "redirect:/admin/visualizzaClienti";
+        }
+        model.addAttribute("users", utenteService.anagrafica());
+        return "/admin/visualizzaClienti";
     }
 	
 	//Sezione Visualizza Meccanici ADMIN
@@ -247,11 +268,11 @@ public class MainController {
     }
 	
 	@PostMapping(value = "/admin/ConfermaPrenotazione")
-    public String confermaIntervento(@RequestParam Long ClienteId, Model model, @ModelAttribute("prenotazione") Prenotazione prenotazione) {
+    public String confermaIntervento(@RequestParam Long prenotaizioneId, Model model, @ModelAttribute("prenotazione") Prenotazione prenotazione) {
 		
 		Meccanico meccanico = prenotazione.getMeccanico();
 		Date data = prenotazione.getData_intervento();
-		prenotazione = prenotazioneService.getPrenotazione(ClienteId);
+		prenotazione = prenotazioneService.getPrenotazione(prenotaizioneId);
 		prenotazione.setMeccanico(meccanico);
 		prenotazione.setData_intervento(data);
 		prenotazione.conferma();
@@ -287,20 +308,6 @@ public class MainController {
 		prenotazioneService.setPrenotazione(prenotazione);
 		
         return "redirect:/admin/cronologiaInterventi";
-    }
-	
-	//REGISTER ADMIN
-	
-	@RequestMapping(value = "/registerAdmin" , method = RequestMethod.POST)
-    public String registerAdmin(@ModelAttribute("user") Utente user, BindingResult userBindingResult, @ModelAttribute("credentials") Credentials credentials, BindingResult credentialsBindingResult, Model model) {
-
-        this.userValidator.validate(user, userBindingResult);
-        this.credentialsValidator.validate(credentials, credentialsBindingResult);
-        if(!userBindingResult.hasErrors() && !credentialsBindingResult.hasErrors()) {
-            credentials.setUser(user);
-            credentialService.saveCredentials(credentials);
-        }
-        return "redirect:/admin/visualizzaClienti";
     }
 	
 	//Funzione Accesso [ADMIN - User - Generico ]

@@ -7,19 +7,24 @@
 	        <div id="verticale">
 	            <form th:action="@{/register}" method="POST">
 	                <label for="fname" class="scritte">Nome</label>
-	                <input type="text" id="fname" name="nome" placeholder="Your name" required>
+	                <input type="text" id="fname" name="nome" placeholder="Your name">
+	                <span class="errore" th:if="${#fields.hasErrors('user.nome')}" th:errors="${user.nome}"></span><br>
 	            
 	                <label for="lname" class="scritte">Cognome</label>
-	                <input type="text" id="lname" name="cognome" placeholder="Your last name" required>
+	                <input type="text" id="lname" name="cognome" placeholder="Your last name">
+	                <span class="errore" th:if="${#fields.hasErrors('user.cognome')}" th:errors="${user.cognome}" ></span><br>
 	                
 	                <label for="lname" class="scritte">Telefono</label>
 	                <input type="tell" minlength="10" maxlength="10" pattern="[0-9]+" id="lname" name="numero" placeholder="Your Number">
+	                <span class="errore" th:if="${#fields.hasErrors('user.numero')}" th:errors="${user.numero}" ></span><br>
 	                
 	                <label for="lname" class="scritte" >Username</label>
-	                <input type="text" id="lname" name="username" required>
+	                <input type="text" id="lname" name="username">
+	                <span class="errore" th:if="${#fields.hasErrors('credentials.username')}" th:errors="${credentials.username}" ></span><br>
 	                
 	                <label for="lname" class="scritte">Password</label>
-	                <input type="password" id="lname" name="password" required>
+	                <input type="password" id="lname" name="password">
+	                <span class="errore" th:if="${#fields.hasErrors('credentials.password')}" th:errors="${credentials.password}" ></span><br>
 	
 	                <input type="submit" value="Registrati">
 	            </form>
