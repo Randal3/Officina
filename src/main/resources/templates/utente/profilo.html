@@ -4,11 +4,7 @@
 	</head> 
  	
 	<body>
-	<td th:switch="${ROLE}">
-		    <span th:case="'0'"><header th:replace="Fragments/baseAdmin.html:: header"></span>
-		    <div th:case="'1'"><header th:replace="Fragments/user.html:: header"></header></div>
-		    <div th:case="'3'"><header th:replace="Fragments/base.html:: header"></header></div>
-		</td>
+	<header th:replace="Fragments/user.html:: header"></header>
 	
 <!-- Page content -->
     <div class="stile-content stile-padding-large stile-margin-top">
@@ -24,7 +20,7 @@
 	                <label class="scritte">Telefono</label>
 	                <input type="text" th:value="*{numero}" readonly="readonly">
 	                
-	                <p><button style="background-color: rgb(128, 255, 0);" class ="bottone"><a style="color: black;" th:href="@{index}">Home</a></button></p>
+	                <p><button style="background-color: rgb(128, 255, 0);" class ="bottone"><a style="color: black;" th:href="@{/index}">Home</a></button></p>
 	                
         </div>
      </div>   

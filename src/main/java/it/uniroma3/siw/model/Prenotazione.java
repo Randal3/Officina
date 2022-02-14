@@ -1,6 +1,5 @@
 package it.uniroma3.siw.model;
 
-import java.util.Date;
 import javax.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import lombok.AccessLevel;
@@ -28,8 +27,8 @@ public class Prenotazione {
     @Column
     private boolean status;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date data_intervento;
+    @Column
+    private String data_intervento;
 
     @ManyToOne
     private Meccanico meccanico;

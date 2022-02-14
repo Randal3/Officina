@@ -12,7 +12,7 @@
         <div class="stile-light-grey stile-padding-large stile-padding-32 stile-margin-top">
         	<p>Scegli il meccanico specializzato</p>
             <hr>
-            <form  th:action="@{/admin/ConfermaPrenotazione/(ClienteId=${prenotazione.id})}" method="POST" th:object="${prenotazione}">
+            <form  th:action="@{/admin/ConfermaPrenotazione/(prenotaizioneId=${prenotazione.id})}" method="POST" th:object="${prenotazione}">
 	             <div>
 				    <table>
 				        <thead>

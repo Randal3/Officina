@@ -1,6 +1,7 @@
 package it.uniroma3.siw.authentication;
 
 import static it.uniroma3.siw.model.Credentials.ADMIN_ROLE;
+import static it.uniroma3.siw.model.Credentials.DEFAULT_ROLE;
 
 import javax.sql.DataSource;
 
@@ -45,11 +46,13 @@ public class AuthConfiguration extends WebSecurityConfigurerAdapter {
                 // solo gli utenti autenticati con ruolo ADMIN possono accedere a risorse con path /admin/**
                 .antMatchers(HttpMethod.GET, "/admin/**").hasAnyAuthority(ADMIN_ROLE)
                 .antMatchers(HttpMethod.POST, "/admin/**").hasAnyAuthority(ADMIN_ROLE)
+                .antMatchers(HttpMethod.GET, "/utente/**").hasAnyAuthority(DEFAULT_ROLE)
+                .antMatchers(HttpMethod.POST, "/utente/**").hasAnyAuthority(DEFAULT_ROLE)
                 // tutti gli utenti autenticati possono accere alle pagine rimanenti 
                 .anyRequest().authenticated()
 
                 .and().formLogin()
-                .loginPage("/login").failureUrl("/index#BADUSER").
+                .loginPage("/login").failureUrl("/login?error=errore").
                 defaultSuccessUrl("/index")
         
 		        .and().logout()

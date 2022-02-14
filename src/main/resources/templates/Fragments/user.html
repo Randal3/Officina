@@ -16,20 +16,20 @@
 					<p class="piccolo" style="font-family: Times New Roman, Times, serif;">La miglior Officina del quartiere</p>
 				</div>
 					<ul>
-						<li><a class="hover" th:href="@{index}">Home</a></li>
+						<li><a class="hover" th:href="@{/index}">Home</a></li>
 						<li><div class="dropdown">
 							    <a class="dropbtn">Interventi 
 							     	<i class="fa fa-caret-down"></i>
 							    </a>
 							    <div class="dropdown-content">
-							      <a th:href="@{/interventi}">Lista interventi</a>
-							      <a th:href="@{/cronologiaUtente}">Cronologia Interventi</a>
+							      <a th:href="@{/utente/interventi}">Lista interventi</a>
+							      <a th:href="@{/utente/cronologiaUtente}">Cronologia Interventi</a>
 							    </div>
 							</div>
 						</li>
-						<li><a class="hover" th:href="@{contatti}" >Contattaci</a></li>
-						<li><a class="hover" th:href="@{profilo}" >Profilo</a></li>
-						<li><a class="hover" th:href="@{logout}" >Logout</a></li>
+						<li><a class="hover" th:href="@{/contatti}" >Contattaci</a></li>
+						<li><a class="hover" th:href="@{/utente/profilo}" >Profilo</a></li>
+						<li><a class="hover" th:href="@{/logout}" >Logout</a></li>
 					</ul>
 			</div>		
 		

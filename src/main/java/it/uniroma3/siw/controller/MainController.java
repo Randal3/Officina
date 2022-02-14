@@ -2,7 +2,8 @@ package it.uniroma3.siw.controller;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import it.uniroma3.siw.controller.validator.CredentialsValidator;
+import it.uniroma3.siw.controller.validator.MeccaniciValidator;
 import it.uniroma3.siw.controller.validator.UtenteValidator;
 import it.uniroma3.siw.model.Credentials;
 import it.uniroma3.siw.model.Meccanico;
@@ -37,6 +39,8 @@ public class MainController {
 	@Autowired
 	private UtenteValidator userValidator;
 	@Autowired
+	private MeccaniciValidator meccanicoValidator;
+	@Autowired
 	private CredentialsValidator credentialsValidator;
 	@Autowired
 	private TipologiaService tipologiaService;
@@ -50,10 +54,15 @@ public class MainController {
 	
 	//Sezione Index
 	
-	@RequestMapping(value = {"/index", "/"}, method = RequestMethod.GET)
-    public String index(Model model) {
+	@GetMapping(value ={"/","/index","/login"})
+    public String index(@RequestParam Optional<String> error,Model model ) {
 		autorizzazione(model);
-		return "index";
+        if(error.orElse(null) != null) {
+            model.addAttribute("errore",true);
+        }else {
+            model.addAttribute("errore",false);
+        }
+        return "index";
     }
 	
 	//Sezione contatti
@@ -91,35 +100,34 @@ public class MainController {
 	
 	//Sezione profilo
 	
-	@RequestMapping(value = "/profilo", method = RequestMethod.GET)
+	@RequestMapping(value = "/utente/profilo", method = RequestMethod.GET)
     public String profilo(Model model) {
-		autorizzazione(model);
 		
 		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Credentials credentials = credentialService.getCredentials(userDetails.getUsername());
         Utente utente = credentials.getUser();
         model.addAttribute("utente", utente);
 		
-		return "profilo";
+		return "utente/profilo";
     }
 	
 	//Sezione interventi
 	
-		@RequestMapping(value = "/interventi", method = RequestMethod.GET)
+		@RequestMapping(value = "/utente/interventi", method = RequestMethod.GET)
 	    public String interventi(Model model) {
 			
 			model.addAttribute("tipi", tipologiaService.tipi());
 			
-			return "/interventi";
+			return "/utente/interventi";
 	    }
 		
-		@GetMapping(value ="/cronologiaUtente")
+		@GetMapping(value ="/utente/cronologiaUtente")
 	    public String cronologiaUtente(Model model) {
 	        UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	        Credentials credentials = credentialService.getCredentials(userDetails.getUsername());
 	        Utente utente = credentials.getUser();
 	        model.addAttribute("prenotazione",prenotazioneService.findByUtente(utente));
-	        return "cronologiaUtente";
+	        return "/utente/cronologiaUtente";
 	    }
 		
 	
@@ -209,21 +217,27 @@ public class MainController {
 	@RequestMapping(value = "/admin/visualizzaMeccanici", method = RequestMethod.GET)
     public String visualizzaMeccanici(Model model) {
 		
-		model.addAttribute("meccanico", new Meccanico());
-		
-		model.addAttribute("nuovoMeccanico", meccanicoService.aggiungiMeccanico());
+		model.addAttribute("listaMeccanico", meccanicoService.listaMeccanico());
 		
 		model.addAttribute("tipi", tipologiaService.tipi());
+		Meccanico meccanico = new Meccanico();
+		model.addAttribute("meccanico", meccanico);
 		
 		return "admin/visualizzaMeccanici";
     }
 	
-	@RequestMapping(value = "/NuovoMeccanico", method = RequestMethod.POST)
-    public String nuovoMeccanico(Model model, @ModelAttribute("meccanico") Meccanico meccanico) {
-		
-		meccanicoService.setMeccanico(meccanico);
-		return "redirect:admin/visualizzaMeccanici";
-    }
+	@PostMapping(value ="/NuovoMeccanico")
+	public String nuovoMeccanico(Model model, @ModelAttribute("meccanico") Meccanico meccanico , BindingResult meccanicoBindingResult) {
+
+		this.meccanicoValidator.validate(meccanico, meccanicoBindingResult);
+		if(!meccanicoBindingResult.hasErrors()) {
+			this.meccanicoService.setMeccanico(meccanico);
+			return "redirect:admin/visualizzaMeccanici";
+		}
+		model.addAttribute("listaMeccanico",this.meccanicoService.listaMeccanico());
+		model.addAttribute("tipi", this.tipologiaService.tipi());
+		return "admin/visualizzaMeccanici";
+	}
 	
 	//Sezione Aggiungi-Prenota Intervento ADMIN
 	
@@ -271,7 +285,7 @@ public class MainController {
     public String confermaIntervento(@RequestParam Long prenotaizioneId, Model model, @ModelAttribute("prenotazione") Prenotazione prenotazione) {
 		
 		Meccanico meccanico = prenotazione.getMeccanico();
-		Date data = prenotazione.getData_intervento();
+		String data = prenotazione.getData_intervento();
 		prenotazione = prenotazioneService.getPrenotazione(prenotaizioneId);
 		prenotazione.setMeccanico(meccanico);
 		prenotazione.setData_intervento(data);
@@ -310,7 +324,7 @@ public class MainController {
         return "redirect:/admin/cronologiaInterventi";
     }
 	
-	//Funzione Accesso [ADMIN - User - Generico ]
+	//Funzione Accesso NAVBAR [ADMIN - User - Generico ]
 	
 	private void autorizzazione(Model model) {
 		model.addAttribute("ROLE", 3);

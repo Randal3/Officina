@@ -22,7 +22,7 @@ public class MeccanicoService {
     }
 
 	@Transactional
-    public List<Meccanico> aggiungiMeccanico() {
+    public List<Meccanico> listaMeccanico() {
         return (List<Meccanico>) this.meccanicoRepository.findAll();
     }
 

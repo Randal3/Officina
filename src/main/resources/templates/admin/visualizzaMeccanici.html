@@ -24,11 +24,13 @@
 				      <form  th:action="@{/NuovoMeccanico}" method="POST" th:object="${meccanico}">
                             <div>
                             	<label for="name">Nome Meccanico</label>
-                            	<input id="name" type="text" th:field="*{nome}"  placeholder=" Name" required>
+                            	<input id="name" type="text" th:field="*{nome}"  placeholder=" Name">
+                            
                             </div>
                             <div>
                             	<label for="cognome">Cognome</label>
-                            	<input id="cognome" type="text" th:field="*{cognome}" placeholder="Cognome" required>
+                            	<input id="cognome" type="text" th:field="*{cognome}" placeholder="Cognome">
+                  
                             </div>
                             <div>
                             <table>
@@ -57,6 +59,8 @@
 				</div>
             <hr>
              <div>
+             <span class="errore" th:if="${#fields.hasErrors('meccanico.nome')}" th:errors="${meccanico.nome}" ></span><br>
+             <span class="errore" th:if="${#fields.hasErrors('meccanico.cognome')}" th:errors="${meccanico.cognome}" ></span>
 			    <table>
 			        <thead>
 			            <tr>
@@ -69,7 +73,7 @@
 			            </tr>
 			        </thead>
 			        <tbody>
-			        <div th:each="t : ${nuovoMeccanico}">
+			        <div th:each="t : ${listaMeccanico}">
 			            <tr>
 			                <td th:text="${t.nome}"></td>
 			                <td th:text="${t.cognome}"></td>
