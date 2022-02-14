@@ -24,7 +24,7 @@
 				      <form  th:action="@{/NuovaTipologia}" method="POST" th:object="${tipologia}">
                             <div>
                             <label for="name">Nome Intervento</label>
-                            <input id="name" type="text" th:field="*{nome}"  placeholder=" Name" required>
+                            <input id="name" type="text" th:field="*{nome}"  placeholder=" Name">
                             </div>
                             <div >
                             <label for="price">Prezzo</label>
@@ -41,6 +41,7 @@
 				</div>
             <hr>
              <div>
+             <span class="errore" th:if="${#fields.hasErrors('tipologia.nome')}" th:errors="${tipologia.nome}"></span><br><br>
 			    <table>
 			        <thead>
 			            <tr>

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import it.uniroma3.siw.controller.validator.CredentialsValidator;
 import it.uniroma3.siw.controller.validator.MeccaniciValidator;
+import it.uniroma3.siw.controller.validator.TipologiaValidator;
 import it.uniroma3.siw.controller.validator.UtenteValidator;
 import it.uniroma3.siw.model.Credentials;
 import it.uniroma3.siw.model.Meccanico;
@@ -37,12 +38,6 @@ public class MainController {
 	@Autowired
 	private CredentialsService credentialService;
 	@Autowired
-	private UtenteValidator userValidator;
-	@Autowired
-	private MeccaniciValidator meccanicoValidator;
-	@Autowired
-	private CredentialsValidator credentialsValidator;
-	@Autowired
 	private TipologiaService tipologiaService;
 	@Autowired
 	private UtenteService utenteService;
@@ -50,6 +45,15 @@ public class MainController {
 	private MeccanicoService meccanicoService;
 	@Autowired
 	private PrenotazioneService prenotazioneService;
+	
+	@Autowired
+	private UtenteValidator userValidator;
+	@Autowired
+	private MeccaniciValidator meccanicoValidator;
+	@Autowired
+	private CredentialsValidator credentialsValidator;
+	@Autowired
+	private TipologiaValidator tipologiaValidator;
 
 	
 	//Sezione Index
@@ -144,12 +148,17 @@ public class MainController {
 		return "admin/modificaInterventi";
     }
 	
-	@RequestMapping(value = "/NuovaTipologia", method = RequestMethod.POST)
-    public String nuovaTipologia(Model model, @ModelAttribute("tipologia") TipologiaIntervento tipologia) {
-		
-		tipologiaService.setTipologia(tipologia);
-		return "redirect:admin/modificaInterventi";
-    }
+	@PostMapping(value ="/NuovaTipologia")
+	public String nuovaTipologia(Model model, @ModelAttribute("tipologia") TipologiaIntervento tipologia , BindingResult tipologiaBindingResult) {
+
+		this.tipologiaValidator.validate(tipologia, tipologiaBindingResult);
+		if(!tipologiaBindingResult.hasErrors()) {
+			this.tipologiaService.setTipologia(tipologia);
+			return "redirect:admin/modificaInterventi";
+		}
+		model.addAttribute("tipi", this.tipologiaService.tipi());
+		return "admin/modificaInterventi";
+	}
 	
 	//Sezione Visualizza Utenti ADMIN
 	

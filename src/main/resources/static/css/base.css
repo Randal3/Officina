@@ -59,7 +59,11 @@
 		
 		.errore{
 			color: red;
-			 font-size: 15px;
+			font-size: 15px;
+		}
+		
+		.errore:before{
+			content: "-";
 		}
 		
 		input:focus, button:focus {outline:0;}

@@ -9,8 +9,8 @@
 		    <div th:case="'1'"><header th:replace="Fragments/user.html:: header"></header></div>
 		    <div th:case="'3'"><header th:replace="Fragments/base.html:: header"></header></div>
 		</td>
-		<div th:if="${errore}" style="text-align: center;" class="errore">
-                <p>Username o Passowrd sbagliati. Riprova</p>
+		<br> <div class="errore" th:if="${errore}" style="text-align: center;">
+               Username o Passowrd sbagliati. Riprova
                     </div>
 		<!-- Page content -->
 	    <div class="stile-content stile-padding-large stile-margin-top">
