@@ -9,7 +9,7 @@
 		    <div th:case="'1'"><header th:replace="Fragments/user.html:: header"></header></div>
 		    <div th:case="'3'"><header th:replace="Fragments/base.html:: header"></header></div>
 		</td>
-		<br> <div class="errore" th:if="${errore}" style="text-align: center;">
+		<br><div class="errore" th:if="${errore}" style="text-align: center;">
                Username o Passowrd sbagliati. Riprova
                     </div>
 		<!-- Page content -->
@@ -22,9 +22,11 @@
 	            </div>
 	            <hr>
 	            <div style="display: flex; padding-top: 40px;">
-                	<div><img style="height: 300px;" src="/images/chisiamo.jpg"/></div>
+                	<div>
+                		<img style="height: 300px;" src="/images/chisiamo.jpg"/>
+                	</div>
                 	<div class="boxstoria">
-                    OFFICINASIW è la nostra autofficina di Ladispoli specializzata in interventi sulla tua auto. Mettiamo alla base del nostro servizio le esigenze del Cliente, eliminando tutte le problematiche che oggi si riscontrano nel settore auto. Grazie alla nostra esperienza abbiamo individuato il modo migliore per soddisfare i nostri clienti ponendo il rimedio a 3 questioni fondamentali: prezzo, tempo di lavorazione e certificazione dei ricambi. OFFICINASIW lavora perché l’accesso ai nostri servizi diventi per il Cliente una piacevole Esperienza da ripetere con regolarità.
+                    	OFFICINASIW è la nostra autofficina di Ladispoli specializzata in interventi sulla tua auto. Mettiamo alla base del nostro servizio le esigenze del Cliente, eliminando tutte le problematiche che oggi si riscontrano nel settore auto. Grazie alla nostra esperienza abbiamo individuato il modo migliore per soddisfare i nostri clienti ponendo il rimedio a 3 questioni fondamentali: prezzo, tempo di lavorazione e certificazione dei ricambi. OFFICINASIW lavora perché l’accesso ai nostri servizi diventi per il Cliente una piacevole Esperienza da ripetere con regolarità.
                 	</div>
                 </div>
 	        </div>

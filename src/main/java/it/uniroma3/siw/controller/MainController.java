@@ -45,7 +45,6 @@ public class MainController {
 	private MeccanicoService meccanicoService;
 	@Autowired
 	private PrenotazioneService prenotazioneService;
-	
 	@Autowired
 	private UtenteValidator userValidator;
 	@Autowired
@@ -172,15 +171,6 @@ public class MainController {
 		model.addAttribute("users", utenteService.anagrafica());
 		
 		return "admin/visualizzaClienti";
-    }
-	
-	@GetMapping(value = "/admin/eliminaUtente/{id}")
-    public String eliminaUtente(@PathVariable("id") Long id) {
-		
-		this.credentialService.elimina(id);
-		this.utenteService.elimina(id);
-        
-        return "redirect:/admin/visualizzaClienti";
     }
 	
 	@GetMapping(value = "/admin/aggiornaUtente/{id}")

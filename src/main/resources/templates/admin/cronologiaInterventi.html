@@ -38,7 +38,7 @@
 			                <td th:text="${t.utente.cognome}"></td>
 			                <td th:text="${t.tipologia.nome}"></td>
 			                <td th:text="${t.data_intervento}"></td>
-			                <td><span th:if="${t.conferma}"th:text="${t.meccanico.nome}"></span>
+			                <td><span th:if="${t.conferma}" th:text="${t.meccanico.nome}"></span>
 			                    <span th:unless="${t.conferma}" ></span></td>
 			                <td style="text-align: center;"><a th:href="'infoIntervento/'+${t.id}" style="color: rgb(128, 128, 128);" class="material-icons">info</a></td>
 			                <td style="text-align: center;"><span th:if="${t.conferma}"></span>

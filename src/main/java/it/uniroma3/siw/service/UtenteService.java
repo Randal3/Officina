@@ -18,7 +18,7 @@ public class UtenteService {
     
 	@Transactional
     public List<Utente> anagrafica() {
-        return (List<Utente>) this.utenteRepository.findAll();
+        return (List<Utente>) this.utenteRepository.findClienti();
     }
 
     @Transactional
